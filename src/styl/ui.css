@@ -250,3 +250,23 @@
 .pigulka svg, .zakladki__link svg, .duzy__ikona svg, .zadanie__ikona svg { width: 1.25em; height: 1.25em; }
 .duzy__ikona svg { width: 1.5em; height: 1.5em; }
 [data-widok='prosty'] .start__naglowek .znak__tekst { display: none; }
+
+/* ---------- dokumenty ---------- */
+.lista-dokumentow { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px; }
+.lista-dokumentow__link { display: block; text-decoration: none; border-radius: 20px; }
+.dok { position: relative; overflow: hidden; border-radius: 20px; padding: 16px; color: #fff; min-height: 190px; display: flex; flex-direction: column; gap: 14px; background: #3555a8; box-shadow: 0 10px 24px rgb(16 32 58 / 18%); }
+.dok--dowod { background: linear-gradient(135deg, #9b2f2c 0%, #c9524d 55%, #e08b6b 100%); }
+.dok--prawo-jazdy { background: linear-gradient(135deg, #1f4f7d, #3f86c4); }
+.dok--pojazd { background: linear-gradient(135deg, #343c4a, #677285); }
+.dok--legitymacja-emeryta { background: linear-gradient(135deg, #17604a, #3d9a77); }
+.dok__gora { display: flex; justify-content: space-between; align-items: center; }
+.dok__nazwa { font-weight: 800; font-size: 1.2rem; }
+.dok__rp { font-weight: 800; border: 2px solid rgb(255 255 255 / 70%); border-radius: 6px; padding: 0 6px; font-size: 0.8rem; }
+.dok__srodek { display: flex; gap: 14px; align-items: flex-end; }
+.dok__zdjecie { width: 64px; height: 76px; flex: none; }
+.dok__dane { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.dok__osoba { font-weight: 800; letter-spacing: 0.04em; overflow-wrap: anywhere; }
+.dok__podpis { opacity: 0.92; font-size: 0.9rem; }
+.dok__hologram { position: absolute; right: -30px; top: -30px; width: 140px; height: 140px; border-radius: 50%; background: radial-gradient(circle, rgb(255 255 255 / 22%), transparent 70%); }
+.kod-sekcja { display: flex; flex-direction: column; gap: 12px; align-items: center; text-align: center; }
+.kod { width: min(240px, 70%); height: auto; border-radius: 8px; }

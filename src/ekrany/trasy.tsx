@@ -3,6 +3,9 @@ import { Zaslepka } from './Zaslepka'
 import { Ustawienia } from './ustawienia/Ustawienia'
 import { Start } from './start/Start'
 import { Sprawy } from './sprawy/Sprawy'
+import { Dokumenty } from './dokumenty/Dokumenty'
+import { Dokument } from './dokumenty/Dokument'
+import { WniosekODowod } from './dokumenty/WniosekODowod'
 
 const ZASLEPKI: [string, string][] = [
   ['start', 'Start'],
@@ -36,6 +39,9 @@ const GOTOWE: [string, JSX.Element][] = [
   ['ustawienia', <Ustawienia />],
   ['start', <Start />],
   ['sprawy', <Sprawy />],
+  ['dokumenty', <Dokumenty />],
+  ['dokumenty/:id', <Dokument />],
+  ['dowod/wniosek/:krok', <WniosekODowod />],
 ]
 
 export function TrasyOsoby() {
