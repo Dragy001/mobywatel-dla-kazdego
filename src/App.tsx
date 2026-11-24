@@ -1,7 +1,7 @@
 import { HashRouter, Navigate, Route, Routes } from 'react-router-dom'
 import { MagazynProvider } from './stan/magazyn'
 import { Powloka } from './ekrany/Powloka'
-import { Wejscie } from './ekrany/wejscie/Wejscie'
+import { Powitanie, Wejscie } from './ekrany/wejscie/Wejscie'
 import { RamkaTelefonu, useSzeroki } from './ui/RamkaTelefonu'
 import './styl/ui.css'
 
@@ -10,14 +10,20 @@ export const STOPKA =
 
 function Uklad() {
   const szeroki = useSzeroki()
-  const aplikacja = (
+  const trasy = (
     <Routes>
-      <Route path="/" element={<Wejscie />} />
+      <Route path="/" element={szeroki ? <Powitanie /> : <Wejscie />} />
       <Route path="/:osoba/*" element={<Powloka />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   )
-  return szeroki ? <RamkaTelefonu>{aplikacja}</RamkaTelefonu> : aplikacja
+  if (!szeroki) return trasy
+  return (
+    <div className="pulpit">
+      <RamkaTelefonu>{trasy}</RamkaTelefonu>
+      <Wejscie panel />
+    </div>
+  )
 }
 
 export default function App() {

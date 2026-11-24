@@ -157,3 +157,56 @@
 .znaczek--sukces { background: var(--sukces-tlo); color: var(--sukces); }
 .znaczek--ostrz { background: var(--ostrz-tlo); color: var(--ostrz); }
 .znaczek--neutralny { background: var(--powierzchnia-2); color: var(--tekst-2); border: 1px solid var(--ramka); }
+
+/* ---------- znak ---------- */
+.znak { display: inline-flex; align-items: center; gap: 10px; }
+.znak__tekst { font-weight: 800; font-size: 1.1rem; letter-spacing: -0.01em; }
+.znak__dopisek { font-weight: 600; color: var(--tekst-2); font-size: 0.85rem; margin-left: 4px; }
+
+/* ---------- przełącznik ---------- */
+.lista-ustawien { display: flex; flex-direction: column; padding: 4px 16px; }
+.przelacznik { display: flex; align-items: center; gap: 12px; width: 100%; background: none; border: 0; padding: 12px 0; text-align: left; cursor: pointer; min-height: 56px; }
+.przelacznik + .przelacznik { border-top: 1px solid var(--ramka); }
+.przelacznik__tekst { flex: 1; display: flex; flex-direction: column; }
+.przelacznik__etykieta { font-weight: 700; }
+.przelacznik__opis { color: var(--tekst-2); font-size: 0.9em; }
+.przelacznik__tor { width: 52px; height: 32px; border-radius: 16px; background: var(--ramka-mocna); position: relative; flex: none; transition: background 0.2s; }
+.przelacznik__galka { position: absolute; top: 3px; left: 3px; width: 26px; height: 26px; border-radius: 50%; background: #fff; transition: transform 0.2s; box-shadow: 0 1px 3px rgb(0 0 0 / 25%); }
+.przelacznik[aria-checked='true'] .przelacznik__tor { background: var(--akcent); }
+.przelacznik[aria-checked='true'] .przelacznik__galka { transform: translateX(20px); }
+.wiersz-ikona { display: flex; align-items: center; gap: 12px; color: var(--pomoc); }
+.wiersz-ikona span { color: var(--tekst); }
+
+/* ---------- wejście dla jury ---------- */
+.pulpit { display: flex; align-items: stretch; justify-content: center; gap: 8px; min-height: 100dvh; }
+.pulpit .ramka { flex: none; position: sticky; top: 0; height: 100dvh; }
+.wejscie { display: flex; flex-direction: column; min-height: 100dvh; padding: 24px 16px; background: var(--tlo); }
+.wejscie--panel { max-width: 560px; padding: 40px 24px; min-height: auto; }
+.wejscie__tresc { display: flex; flex-direction: column; gap: 16px; flex: 1; }
+.wejscie__tytul { font-size: 2.2rem; font-weight: 800; letter-spacing: -0.02em; }
+.wejscie__lead { font-size: 1.1rem; color: var(--tekst-2); }
+.wejscie__lead strong { color: var(--tekst); }
+.wejscie__h2 { font-size: 1rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--tekst-2); margin-top: 12px; }
+.wejscie__h3 { font-size: 1.05rem; margin-bottom: 6px; }
+.wejscie__osoby { display: flex; flex-direction: column; gap: 12px; }
+.osoba-karta { display: flex; align-items: center; gap: 14px; padding: 16px; border-radius: 18px; background: var(--powierzchnia); border: 1px solid var(--ramka); color: var(--tekst); text-decoration: none; box-shadow: var(--cien); }
+.osoba-karta:hover { border-color: var(--akcent); }
+.osoba-karta__awatar { width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; flex: none; }
+.osoba-karta__awatar--halina { background: #f6e3d3; color: #7a3e12; }
+.osoba-karta__awatar--tomasz { background: #d9e6fb; color: #123a7a; }
+.osoba-karta__tekst { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+.osoba-karta__imie { font-weight: 800; font-size: 1.1rem; }
+.osoba-karta__opis { color: var(--akcent); font-weight: 600; font-size: 0.9rem; }
+.osoba-karta__zdanie { color: var(--tekst-2); font-size: 0.9rem; }
+.wejscie__sprawdz { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+.wejscie__lista { margin: 0; padding-left: 1.3em; display: flex; flex-direction: column; gap: 6px; }
+.wejscie__lista a { font-weight: 600; }
+.wejscie__nowe { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+.wejscie__nowe li { display: flex; gap: 12px; align-items: flex-start; color: var(--tekst-2); }
+.wejscie__nowe strong { color: var(--tekst); }
+.wejscie__nowe-ikona { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 12px; background: var(--akcent-tlo); color: var(--akcent); flex: none; }
+.wejscie__stopka { margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--ramka); color: var(--tekst-2); font-size: 0.85rem; }
+.powitanie { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; text-align: center; padding: 32px; height: 100%; background: var(--tlo); }
+.powitanie .znak__tekst { display: none; }
+.powitanie p { font-size: 1.15rem; color: var(--tekst-2); }
+.powitanie__osoby { display: flex; flex-direction: column; gap: 10px; width: 100%; }
