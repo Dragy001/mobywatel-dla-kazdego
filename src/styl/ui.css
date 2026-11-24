@@ -306,3 +306,31 @@
 .skad--prosty .skad__gora { flex-direction: column; }
 .skad__wynik { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; font-weight: 700; font-size: 1.1em; }
 [data-widok='prosty'] .skad__wynik { flex-direction: column; }
+
+/* ---------- faktury ---------- */
+.zakladki-wew { display: flex; background: var(--powierzchnia-2); border: 1px solid var(--ramka); border-radius: 14px; padding: 4px; gap: 4px; }
+.zakladki-wew__tab { flex: 1; min-height: 44px; border: 0; border-radius: 10px; background: transparent; font-weight: 700; color: var(--tekst-2); cursor: pointer; }
+.zakladki-wew__tab[aria-selected='true'] { background: var(--powierzchnia); color: var(--tekst); box-shadow: var(--cien); }
+.faktury { list-style: none; margin: 0; padding: 0; background: var(--powierzchnia); border: 1px solid var(--ramka); border-radius: var(--promien); overflow: hidden; }
+.faktury li + li { border-top: 1px solid var(--ramka); }
+.faktura-wiersz { display: flex; justify-content: space-between; gap: 10px; padding: 12px 14px; color: var(--tekst); text-decoration: none; min-height: 60px; }
+.faktura-wiersz:hover { background: var(--powierzchnia-2); }
+.faktura-wiersz__lewa { display: flex; flex-direction: column; min-width: 0; }
+.faktura-wiersz__lewa span { color: var(--tekst-2); font-size: 0.85rem; }
+.faktura-wiersz__prawa { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+.faktury--duze { background: none; border: 0; display: flex; flex-direction: column; gap: 12px; }
+.faktury--duze li + li { border: 0; }
+.faktury--duze .faktura-wiersz { background: var(--powierzchnia); border: 1px solid var(--ramka); border-radius: 18px; flex-direction: column; padding: 16px; }
+.faktury--duze .faktura-wiersz__prawa { flex-direction: row; justify-content: space-between; align-items: center; }
+.faktura-kwota { display: flex; flex-direction: column; gap: 6px; align-items: flex-start; }
+.faktura-kwota > span:first-child { color: var(--tekst-2); font-weight: 600; }
+.kwoty-na-zywo { display: flex; flex-direction: column; gap: 4px; }
+.kwoty-na-zywo span { color: var(--tekst-2); }
+.wybor--poziomy { flex-direction: row; flex-wrap: wrap; }
+.wybor--poziomy legend { width: 100%; }
+.wybor--poziomy .opcja { flex: 1 1 140px; }
+@media print {
+  .zakladki, .pomoc-dol, .pasek-gorny__rzad, .przycisk, .pasek-pomocnika { display: none !important; }
+  .ramka__ekran { border: 0; box-shadow: none; height: auto; }
+  .wejscie--panel { display: none; }
+}

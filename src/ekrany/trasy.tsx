@@ -10,6 +10,9 @@ import { Pomoc } from './pomoc/Pomoc'
 import { PoprosBliska } from './pomoc/PoprosBliska'
 import { MojaFirma } from './firma/MojaFirma'
 import { SkadKwota } from './firma/SkadKwota'
+import { Faktury } from './faktury/Faktury'
+import { Faktura } from './faktury/Faktura'
+import { NowaFaktura } from './faktury/NowaFaktura'
 
 const ZASLEPKI: [string, string][] = [
   ['start', 'Start'],
@@ -50,6 +53,9 @@ const GOTOWE: [string, JSX.Element][] = [
   ['pomoc/bliska/:krok', <PoprosBliska />],
   ['firma', <MojaFirma />],
   ['firma/kwota/:rodzaj', <SkadKwota />],
+  ['faktury', <Faktury />],
+  ['faktury/:id', <Faktura />],
+  ['faktura/nowa/:krok', <NowaFaktura />],
 ]
 
 export function TrasyOsoby() {
