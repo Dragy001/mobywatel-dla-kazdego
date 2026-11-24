@@ -1,6 +1,8 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { Zaslepka } from './Zaslepka'
 import { Ustawienia } from './ustawienia/Ustawienia'
+import { Start } from './start/Start'
+import { Sprawy } from './sprawy/Sprawy'
 
 const ZASLEPKI: [string, string][] = [
   ['start', 'Start'],
@@ -32,6 +34,8 @@ const ZASLEPKI: [string, string][] = [
 /** Ekrany gotowe nadpisują zaślepki — dopisuj je tutaj. */
 const GOTOWE: [string, JSX.Element][] = [
   ['ustawienia', <Ustawienia />],
+  ['start', <Start />],
+  ['sprawy', <Sprawy />],
 ]
 
 export function TrasyOsoby() {

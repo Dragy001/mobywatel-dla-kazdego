@@ -210,3 +210,43 @@
 .powitanie .znak__tekst { display: none; }
 .powitanie p { font-size: 1.15rem; color: var(--tekst-2); }
 .powitanie__osoby { display: flex; flex-direction: column; gap: 10px; width: 100%; }
+
+/* ---------- start ---------- */
+.start__naglowek { padding: 14px 0 0; display: flex; flex-direction: column; gap: 10px; }
+.start__akcje { display: inline-flex; gap: 8px; }
+.pigulka--ikona { padding: 0; width: 44px; justify-content: center; color: var(--tekst); }
+[data-widok='prosty'] .pigulka--ikona { width: 56px; }
+.asystent-pole {
+  display: flex; align-items: center; gap: 10px; min-height: 52px; padding: 0 16px; border-radius: 999px;
+  background: var(--powierzchnia); border: 1px solid var(--ramka-mocna); color: var(--tekst-2); text-decoration: none; font-weight: 600;
+}
+.asystent-pole svg { color: var(--akcent); }
+.sekcja-naglowek { display: flex; justify-content: space-between; align-items: baseline; }
+.link-maly { font-weight: 700; text-decoration: none; padding: 8px 4px; }
+.zadania { list-style: none; margin: 10px 0 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.zadanie { background: var(--powierzchnia); border: 1px solid var(--ramka); border-radius: var(--promien); padding: 14px 16px; display: flex; flex-direction: column; gap: 6px; box-shadow: var(--cien); }
+.zadanie--pilne { background: var(--ostrz-tlo); border-color: var(--ostrz-ramka); box-shadow: none; }
+.zadanie__gora { display: flex; align-items: center; gap: 8px; }
+.zadanie__ikona { color: var(--akcent); display: flex; }
+.zadanie--pilne .zadanie__ikona { color: var(--ostrz); }
+.zadanie--gotowe .zadanie__ikona { color: var(--sukces); }
+.zadanie__tytul { font-size: 1rem; font-weight: 700; flex: 1; }
+.zadanie__kiedy { font-size: 0.8rem; font-weight: 700; color: var(--tekst-2); white-space: nowrap; }
+.zadanie--pilne .zadanie__kiedy { color: var(--ostrz); }
+.zadanie__opis { color: var(--tekst-2); }
+.zadanie__akcja { align-self: flex-start; display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border-radius: 999px; background: var(--akcent); color: var(--na-akcencie); font-weight: 700; text-decoration: none; margin-top: 4px; }
+.dokumenty-rzad { display: flex; gap: 10px; overflow-x: auto; padding: 10px 2px 6px; scroll-snap-type: x mandatory; }
+.mini-dok { flex: 0 0 150px; min-height: 96px; border-radius: 16px; padding: 12px; color: #fff; text-decoration: none; display: flex; flex-direction: column; justify-content: flex-end; scroll-snap-align: start; background: #3555a8; }
+.mini-dok--dowod { background: linear-gradient(135deg, #b6403d, #e0716b); }
+.mini-dok--prawo-jazdy { background: linear-gradient(135deg, #2f6a9e, #5d9bd0); }
+.mini-dok--pojazd { background: linear-gradient(135deg, #4b5563, #7b8494); }
+.mini-dok--legitymacja-emeryta { background: linear-gradient(135deg, #1f7a5a, #49a883); }
+.mini-dok__nazwa { font-weight: 800; }
+.mini-dok__podpis { font-size: 0.8rem; opacity: 0.92; }
+.zdanie-dnia { display: flex; flex-direction: column; gap: 12px; font-size: 1.15em; font-weight: 600; }
+.zdanie-dnia__akcja { align-self: flex-start; display: inline-flex; align-items: center; min-height: 56px; padding: 0 22px; border-radius: 999px; background: var(--ostrz); color: var(--ostrz-tlo); font-weight: 800; text-decoration: none; }
+.duze-przyciski { display: flex; flex-direction: column; gap: 12px; }
+.pigulka { white-space: nowrap; }
+.pigulka svg, .zakladki__link svg, .duzy__ikona svg, .zadanie__ikona svg { width: 1.25em; height: 1.25em; }
+.duzy__ikona svg { width: 1.5em; height: 1.5em; }
+[data-widok='prosty'] .start__naglowek .znak__tekst { display: none; }

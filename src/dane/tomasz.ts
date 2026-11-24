@@ -71,7 +71,7 @@ export const tomasz: Osoba = {
   id: 'tomasz',
   imie: 'Tomasz',
   nazwisko: 'Wójcik',
-  wolacz: 'Tomaszu',
+  wolacz: 'Tomasz',
   wiek: 34,
   miasto: 'Poznań',
   adres: 'ul. Jeżycka 31 m. 7, 60-865 Poznań',

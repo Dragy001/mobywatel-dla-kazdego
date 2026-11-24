@@ -42,3 +42,10 @@ export function zaIleDni(data: string): string {
   if (n < 0) return `${-n} dni temu`
   return `za ${n} dni`
 }
+
+const DNI = ['niedziela', 'poniedziałek', 'wtorek', 'środa', 'czwartek', 'piątek', 'sobota']
+
+/** "sobota, 5 grudnia" */
+export function dzisSlownie(data: string = DZIS): string {
+  return `${DNI[new Date(doUtc(data)).getUTCDay()]}, ${dataSlownie(data)}`
+}

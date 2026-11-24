@@ -4,7 +4,7 @@ export const halina: Osoba = {
   id: 'halina',
   imie: 'Halina',
   nazwisko: 'Nowak',
-  wolacz: 'Halino',
+  wolacz: 'Pani Halino',
   wiek: 71,
   miasto: 'Radom',
   adres: 'ul. Słowackiego 14 m. 3, 26-600 Radom',
