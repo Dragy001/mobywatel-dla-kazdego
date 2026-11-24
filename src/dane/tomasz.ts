@@ -33,6 +33,8 @@ const sprzedaz: [string, Kontrahent, string, number][] = [
   ['2026-11-24', K.nordwind, 'Grafiki do kampanii — poprawki', 87000],
   ['2026-11-27', K.linia, 'Identyfikacja wizualna — etap 2', 130000],
   ['2026-11-29', K.fundacja, 'Plakaty wydarzenia', 40000],
+  ['2026-12-02', K.nordwind, 'Grafiki do kampanii — grudzień', 280000],
+  ['2026-12-04', K.lipa, 'Projekt zakładek do książek', 45000],
 ]
 
 const zakupy: [string, Kontrahent, string, number, string, boolean, boolean][] = [
@@ -45,13 +47,13 @@ const zakupy: [string, Kontrahent, string, number, string, boolean, boolean][] =
 const faktury: Faktura[] = [
   ...sprzedaz.map(([data, k, opis, netto], i): Faktura => ({
     id: `s${i + 1}`,
-    numer: `FV/${i + 1}/11/2026`,
+    numer: data.startsWith('2026-12') ? `FV/${i - 9}/12/2026` : `FV/${i + 1}/11/2026`,
     numerKsef: ksef(data, i + 1),
     rodzaj: 'wystawiona',
     data,
     kontrahent: k,
     pozycje: [{ opis, netto, stawkaVat: 23 }],
-    zaplacona: i < 7,
+    zaplacona: i < 7 || i === 10,
   })),
   ...zakupy.map(([data, k, opis, netto, rachunek, biala, zaplacona], i): Faktura => ({
     id: `z${i + 1}`,

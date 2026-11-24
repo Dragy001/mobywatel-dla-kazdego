@@ -270,3 +270,39 @@
 .dok__hologram { position: absolute; right: -30px; top: -30px; width: 140px; height: 140px; border-radius: 50%; background: radial-gradient(circle, rgb(255 255 255 / 22%), transparent 70%); }
 .kod-sekcja { display: flex; flex-direction: column; gap: 12px; align-items: center; text-align: center; }
 .kod { width: min(240px, 70%); height: auto; border-radius: 8px; }
+
+/* ---------- moja firma ---------- */
+.firma-naglowek { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+.firma-naglowek__nazwa { font-weight: 800; font-size: 1.1rem; }
+.maly { font-size: 0.85em; }
+.do-zaplaty { display: flex; flex-direction: column; gap: 8px; }
+.do-zaplaty__tytul { font-size: 0.95rem; color: var(--tekst-2); font-weight: 700; }
+.do-zaplaty__lista { list-style: none; margin: 6px 0 0; padding: 0; display: flex; flex-direction: column; }
+.do-zaplaty__lista li { padding: 10px 0; border-top: 1px solid var(--ramka); }
+.do-zaplaty__wiersz { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.do-zaplaty__wiersz--maly { font-size: 0.85rem; color: var(--tekst-2); }
+.do-zaplaty__wiersz--maly a { font-weight: 700; padding: 6px 0; }
+.lista-wejsc { list-style: none; margin: 0; padding: 0; background: var(--powierzchnia); border: 1px solid var(--ramka); border-radius: var(--promien); overflow: hidden; }
+.lista-wejsc li + li { border-top: 1px solid var(--ramka); }
+.wejscie-firmy { display: flex; align-items: center; gap: 12px; padding: 12px 14px; min-height: 60px; color: var(--tekst); text-decoration: none; }
+.wejscie-firmy:hover { background: var(--powierzchnia-2); }
+.wejscie-firmy__ikona { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 10px; background: var(--akcent-tlo); color: var(--akcent); flex: none; }
+.wejscie-firmy__tekst { flex: 1; display: flex; flex-direction: column; }
+.wejscie-firmy__tekst span { color: var(--tekst-2); font-size: 0.85rem; }
+.wejscie-firmy > svg { color: var(--tekst-2); }
+.zdanie-glowne { font-size: 1.2em; font-weight: 700; }
+[data-widok='prosty'] .do-zaplaty { gap: 12px; padding: 12px; }
+
+/* ---------- skąd ta kwota ---------- */
+.skad { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0; background: var(--powierzchnia); border: 1px solid var(--ramka); border-radius: var(--promien); }
+.skad__krok { padding: 14px 16px; border-top: 1px solid var(--ramka); display: flex; flex-direction: column; gap: 4px; }
+.skad__krok:first-child { border-top: 0; }
+.skad__gora { display: flex; justify-content: space-between; gap: 10px; align-items: baseline; }
+.skad__nazwa { font-weight: 700; display: flex; gap: 8px; align-items: baseline; }
+.skad__znak { display: inline-grid; place-items: center; min-width: 22px; height: 22px; border-radius: 6px; background: var(--powierzchnia-2); color: var(--tekst-2); font-weight: 800; }
+.skad__wyjasnienie { color: var(--tekst-2); font-size: 0.92em; }
+.skad--prosty { background: none; border: 0; gap: 12px; }
+.skad--prosty .skad__krok { background: var(--powierzchnia); border: 1px solid var(--ramka); border-radius: 18px; padding: 18px; }
+.skad--prosty .skad__gora { flex-direction: column; }
+.skad__wynik { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; font-weight: 700; font-size: 1.1em; }
+[data-widok='prosty'] .skad__wynik { flex-direction: column; }
