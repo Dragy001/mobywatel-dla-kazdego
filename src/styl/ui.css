@@ -1,0 +1,159 @@
+/* ---------- układ aplikacji ---------- */
+#root { min-height: 100dvh; }
+.aplikacja { display: flex; flex-direction: column; min-height: 100dvh; background: var(--tlo); }
+.ramka .aplikacja { min-height: 100%; height: 100%; }
+.tresc { flex: 1; overflow-y: auto; padding: 0 16px 24px; display: flex; flex-direction: column; gap: 16px; }
+.ramka .tresc { min-height: 0; }
+[data-widok='prosty'] .tresc { font-size: 1.25rem; gap: 18px; padding: 0 18px 24px; }
+
+/* ---------- ramka telefonu na komputerze ---------- */
+.ramka { min-height: 100dvh; display: flex; align-items: center; justify-content: center; padding: 24px; }
+.ramka__ekran {
+  width: 390px; height: min(844px, calc(100dvh - 48px)); border-radius: 44px; overflow: hidden;
+  border: 10px solid #0d1424; background: var(--tlo); box-shadow: 0 30px 80px rgb(10 20 40 / 25%);
+  display: flex; flex-direction: column;
+}
+.ramka__ekran > * { flex: 1; min-height: 0; }
+
+/* ---------- pasek górny ---------- */
+.pasek-gorny { padding: 14px 0 4px; display: flex; flex-direction: column; gap: 10px; }
+.pasek-gorny__rzad { display: flex; justify-content: space-between; align-items: center; gap: 8px; min-height: 44px; }
+.pasek-gorny__tytul { font-size: 1.75rem; font-weight: 700; letter-spacing: -0.01em; }
+.pasek-gorny__tytul:focus { outline: none; box-shadow: none; }
+.pasek-gorny__podtytul { color: var(--tekst-2); }
+[data-widok='prosty'] .pasek-gorny__tytul { font-size: 2rem; }
+
+.pigulka {
+  display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 14px;
+  border-radius: 999px; border: 1px solid var(--ramka); background: var(--powierzchnia);
+  color: var(--tekst); font-weight: 600; font-size: 0.95rem; cursor: pointer;
+}
+.pigulka:hover { border-color: var(--ramka-mocna); }
+.pigulka[aria-pressed='true'] { background: var(--akcent-tlo); color: var(--akcent-mocny); border-color: var(--akcent); }
+[data-widok='prosty'] .pigulka { min-height: 56px; padding: 0 18px; font-size: 1.1rem; }
+.pigulka--wroc { padding-left: 8px; }
+
+/* ---------- karty i wiersze ---------- */
+.karta {
+  display: block; background: var(--powierzchnia); border: 1px solid var(--ramka); border-radius: var(--promien);
+  padding: 14px 16px; box-shadow: var(--cien); color: inherit; text-decoration: none;
+}
+.karta--link:hover { border-color: var(--ramka-mocna); }
+.karta--ostrzezenie { background: var(--ostrz-tlo); border-color: var(--ostrz-ramka); color: var(--ostrz); box-shadow: none; }
+.karta--neutralna { background: var(--powierzchnia-2); box-shadow: none; }
+.karta--sukces { background: var(--sukces-tlo); border-color: transparent; color: var(--sukces); box-shadow: none; }
+.karta--blad { background: var(--blad-tlo); border-color: transparent; color: var(--blad); box-shadow: none; }
+[data-widok='prosty'] .karta { padding: 18px; border-radius: 18px; }
+
+.wiersze { margin: 0; display: flex; flex-direction: column; }
+.wiersz { display: flex; justify-content: space-between; gap: 12px; padding: 8px 0; border-top: 1px solid var(--ramka); }
+.wiersz:first-child { border-top: 0; padding-top: 0; }
+.wiersz:last-child { padding-bottom: 0; }
+.wiersz dt { color: var(--tekst-2); }
+.wiersz dd { margin: 0; text-align: right; font-weight: 600; overflow-wrap: anywhere; }
+.wiersz--mocno dt, .wiersz--mocno dd { color: var(--tekst); font-weight: 700; }
+[data-widok='prosty'] .wiersz { flex-direction: column; gap: 2px; }
+[data-widok='prosty'] .wiersz dd { text-align: left; }
+
+.sekcja-tytul { font-size: 1.05rem; font-weight: 700; display: flex; align-items: center; gap: 8px; margin-top: 4px; }
+[data-widok='prosty'] .sekcja-tytul { font-size: 1.3rem; }
+.akapit { color: var(--tekst-2); }
+.uwaga { background: var(--akcent-tlo); color: var(--akcent-mocny); border-radius: var(--promien-maly); padding: 12px 14px; }
+.kwota { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.kwota--duza { font-size: 2rem; font-weight: 750; letter-spacing: -0.02em; }
+
+/* ---------- duże przyciski ---------- */
+.duzy {
+  display: flex; align-items: center; gap: 14px; width: 100%; min-height: 64px; padding: 14px 16px;
+  border-radius: 18px; border: 1px solid var(--ramka); background: var(--powierzchnia); color: var(--tekst);
+  text-decoration: none; text-align: left; cursor: pointer; box-shadow: var(--cien);
+}
+.duzy:hover { border-color: var(--ramka-mocna); }
+.duzy__ikona { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 12px; background: var(--akcent-tlo); color: var(--akcent); flex: none; }
+.duzy__tekst { display: flex; flex-direction: column; flex: 1; min-width: 0; }
+.duzy__etykieta { font-weight: 700; font-size: 1.1em; }
+.duzy__opis { color: var(--tekst-2); font-size: 0.9em; }
+.duzy__strzalka { color: var(--tekst-2); flex: none; }
+.duzy--glowny { background: var(--akcent); border-color: var(--akcent); color: var(--na-akcencie); }
+.duzy--glowny .duzy__ikona { background: rgb(255 255 255 / 18%); color: inherit; }
+.duzy--glowny .duzy__opis, .duzy--glowny .duzy__strzalka { color: inherit; opacity: 0.9; }
+.duzy--pomoc { background: var(--pomoc-tlo); border-color: transparent; color: var(--pomoc); box-shadow: none; justify-content: center; }
+.duzy--pomoc .duzy__ikona { background: transparent; color: inherit; }
+.duzy--pomoc .duzy__tekst { flex: none; }
+[data-widok='prosty'] .duzy { min-height: 76px; font-size: 1.2rem; }
+
+/* ---------- zwykłe przyciski ---------- */
+.przycisk {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 52px; padding: 0 20px;
+  border-radius: 14px; border: 1px solid transparent; font-weight: 700; font-size: 1rem; text-decoration: none; cursor: pointer; width: 100%;
+}
+.przycisk--glowny { background: var(--akcent); color: var(--na-akcencie); }
+.przycisk--glowny:hover { background: var(--akcent-mocny); }
+.przycisk--drugi { background: var(--powierzchnia); color: var(--akcent-mocny); border-color: var(--ramka-mocna); }
+.przycisk--tekst { background: transparent; color: var(--akcent); width: auto; min-height: 44px; padding: 0 8px; }
+.przycisk--niebezpieczny { background: var(--blad-tlo); color: var(--blad); }
+.przycisk:disabled { opacity: 0.6; cursor: progress; }
+[data-widok='prosty'] .przycisk { min-height: 64px; font-size: 1.2rem; border-radius: 18px; }
+.dol { display: flex; flex-direction: column; gap: 10px; margin-top: auto; padding-top: 8px; }
+
+/* ---------- kroki ---------- */
+.kroki { display: flex; flex-direction: column; gap: 6px; }
+.kroki__tekst { color: var(--tekst-2); font-weight: 600; font-size: 0.9em; }
+.kroki__pasek { height: 6px; background: var(--ramka); border-radius: 3px; overflow: hidden; }
+.kroki__wypelnienie { height: 100%; background: var(--akcent); border-radius: 3px; transition: width 0.3s ease; }
+
+/* ---------- wynik ---------- */
+.wynik { display: flex; flex-direction: column; gap: 16px; flex: 1; }
+.wynik__naglowek { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 8px; padding: 16px 0 4px; }
+.wynik__ikona { color: var(--sukces); }
+.wynik__tytul { font-size: 1.5rem; font-weight: 750; }
+.potwierdz { display: flex; flex-direction: column; gap: 14px; flex: 1; }
+
+/* ---------- pasek zakładek ---------- */
+.zakladki {
+  display: flex; justify-content: space-around; background: var(--powierzchnia); border-top: 1px solid var(--ramka);
+  padding: 6px 4px calc(6px + env(safe-area-inset-bottom)); position: sticky; bottom: 0;
+}
+.zakladki__link {
+  display: flex; flex-direction: column; align-items: center; gap: 2px; min-width: 64px; min-height: 48px; padding: 4px 8px;
+  color: var(--tekst-2); text-decoration: none; font-size: 0.75rem; font-weight: 600; border-radius: 12px;
+}
+.zakladki__link.active { color: var(--akcent); background: var(--akcent-tlo); }
+
+/* ---------- prosty widok: pomoc na dole ---------- */
+.pomoc-dol { padding: 10px 18px calc(12px + env(safe-area-inset-bottom)); background: var(--tlo); border-top: 1px solid var(--ramka); position: sticky; bottom: 0; }
+
+/* ---------- pasek pomocnika ---------- */
+.pasek-pomocnika { display: flex; align-items: center; gap: 8px; padding: 10px 16px; background: var(--pomoc-tlo); color: var(--pomoc); font-weight: 600; }
+.pasek-pomocnika span { flex: 1; }
+.pasek-pomocnika__zakoncz { background: transparent; border: 1px solid currentColor; color: inherit; border-radius: 999px; min-height: 40px; padding: 0 14px; font-weight: 700; cursor: pointer; }
+
+/* ---------- formularze ---------- */
+.pole { display: flex; flex-direction: column; gap: 6px; }
+.pole label { font-weight: 600; }
+.pole input, .pole select {
+  min-height: 52px; border-radius: 12px; border: 1px solid var(--ramka-mocna); background: var(--powierzchnia);
+  padding: 0 14px; font-size: 1.05rem; width: 100%;
+}
+.pole input:focus-visible, .pole select:focus-visible { box-shadow: var(--fokus); }
+.pole__blad { color: var(--blad); font-weight: 600; }
+.pole__podpowiedz { color: var(--tekst-2); font-size: 0.9em; }
+[data-widok='prosty'] .pole input, [data-widok='prosty'] .pole select { min-height: 64px; font-size: 1.25rem; }
+
+.wybor { display: flex; flex-direction: column; gap: 10px; border: 0; padding: 0; margin: 0; }
+.wybor legend { font-weight: 700; margin-bottom: 8px; padding: 0; }
+.opcja {
+  display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-radius: var(--promien);
+  border: 1px solid var(--ramka); background: var(--powierzchnia); cursor: pointer; min-height: 56px;
+}
+.opcja:has(input:checked) { border-color: var(--akcent); box-shadow: inset 0 0 0 1px var(--akcent); background: var(--akcent-tlo); }
+.opcja input { width: 22px; height: 22px; accent-color: var(--akcent); flex: none; }
+.opcja__tekst { display: flex; flex-direction: column; }
+.opcja__opis { color: var(--tekst-2); font-size: 0.9em; }
+[data-widok='prosty'] .opcja { min-height: 72px; }
+
+.lista-zwykla { margin: 0; padding-left: 1.2em; display: flex; flex-direction: column; gap: 8px; }
+.znaczek { display: inline-flex; align-items: center; gap: 4px; padding: 2px 10px; border-radius: 999px; font-size: 0.8rem; font-weight: 700; }
+.znaczek--sukces { background: var(--sukces-tlo); color: var(--sukces); }
+.znaczek--ostrz { background: var(--ostrz-tlo); color: var(--ostrz); }
+.znaczek--neutralny { background: var(--powierzchnia-2); color: var(--tekst-2); border: 1px solid var(--ramka); }
