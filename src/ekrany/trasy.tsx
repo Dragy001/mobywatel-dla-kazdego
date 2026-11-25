@@ -19,6 +19,7 @@ import { Dostep, OdbierzDostep, PrzedluzToken } from './dostep/Dostep'
 import { NowyDostep } from './dostep/NowyDostep'
 import { Terminy } from './terminy/Terminy'
 import { Zaplac } from './terminy/Zaplac'
+import { Sms, SmsWerdykt, SmsZglos } from './sms/Sms'
 import { Wznowienie, Zawieszenie } from './ceidg/Zawieszenie'
 
 const ZASLEPKI: [string, string][] = [
@@ -73,6 +74,9 @@ const GOTOWE: [string, JSX.Element][] = [
   ['dostep/nowy/:krok', <NowyDostep />],
   ['terminy', <Terminy />],
   ['zaplac/:id/:krok', <Zaplac />],
+  ['sms', <Sms />],
+  ['sms/:id', <SmsWerdykt />],
+  ['sms/:id/zglos', <SmsZglos />],
 ]
 
 export function TrasyOsoby() {
