@@ -4,6 +4,7 @@ import { formatZl, type Grosze } from '../../logika/pieniadze'
 import { useMagazyn, useUstawienia } from '../../stan/magazyn'
 import { PasekGorny } from '../../ui/PasekGorny'
 import { Dol, PrzyciskLink } from '../../ui/Przycisk'
+import { PorownajZKsiegowa } from './PorownajZKsiegowa'
 import { usePodsumowanie } from './usePodsumowanie'
 
 interface Krok { nazwa: string; kwota: Grosze; znak?: '−' | '=' | '×'; wyjasnienie: string }
@@ -75,6 +76,7 @@ export function SkadKwota() {
         <span>Do zapłaty do {dataSlownie(termin)}</span>
         <strong className="kwota">{formatZl(doZaplaty)}</strong>
       </div>
+      <PorownajZKsiegowa key={rodzaj} kwota={doZaplaty} />
       <Dol><PrzyciskLink do={`zaplac/${rodzaj}-${p.miesiac}/1`}>Zapłać</PrzyciskLink></Dol>
     </>
   )

@@ -391,3 +391,4 @@
 .kreci { animation: kreci 1s linear infinite; }
 @keyframes kreci { to { transform: rotate(360deg); } }
 @media (prefers-reduced-motion: reduce) { .kreci { animation: none; } }
+.porownaj { margin-top: 20px; }
