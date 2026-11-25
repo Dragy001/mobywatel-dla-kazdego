@@ -41,7 +41,7 @@ const zakupy: [string, Kontrahent, string, number, string, boolean, boolean][] =
   ['2026-11-02', D.chmura, 'Abonament na programy graficzne', 24900, 'PL 27 1140 2004 0000 3102 7531 8800', true, true],
   ['2026-11-10', D.bit, 'Tablet graficzny', 189900, 'PL 83 1020 4027 0000 1702 0118 2290', true, true],
   ['2026-11-15', D.drukarnia, 'Wydruki próbne', 32000, 'PL 14 2490 0005 0000 4530 9822 1047', false, false],
-  ['2026-11-21', D.telekom, 'Internet i telefon', 12000, 'PL 55 1050 0099 7603 1234 5678 9123', true, true],
+  ['2026-11-21', D.telekom, 'Internet i telefon', 12000, 'PL 55 1050 0099 7603 1234 5678 9123', true, false],
 ]
 
 const faktury: Faktura[] = [

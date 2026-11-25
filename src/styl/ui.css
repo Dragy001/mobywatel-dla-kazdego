@@ -388,3 +388,6 @@
 .pit__wynik .kwota-duza { margin: 4px 0; }
 .pit__etykieta { margin: 0; font-weight: 700; color: var(--tekst-2); }
 .pit__lista { margin-bottom: 16px; }
+.kreci { animation: kreci 1s linear infinite; }
+@keyframes kreci { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .kreci { animation: none; } }

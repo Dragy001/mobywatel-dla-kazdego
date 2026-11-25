@@ -13,6 +13,7 @@ import { SkadKwota } from './firma/SkadKwota'
 import { Faktury } from './faktury/Faktury'
 import { Faktura } from './faktury/Faktura'
 import { NowaFaktura } from './faktury/NowaFaktura'
+import { ZaplacFakture } from './faktury/ZaplacFakture'
 import { Asystent } from './asystent/Asystent'
 import { Ceidg } from './ceidg/Ceidg'
 import { Dostep, OdbierzDostep, PrzedluzToken } from './dostep/Dostep'
@@ -66,6 +67,7 @@ const GOTOWE: [string, JSX.Element][] = [
   ['faktury', <Faktury />],
   ['faktury/:id', <Faktura />],
   ['faktura/nowa/:krok', <NowaFaktura />],
+  ['faktury/:id/zaplac/:krok', <ZaplacFakture />],
   ['asystent', <Asystent />],
   ['ceidg', <Ceidg />],
   ['ceidg/zawies/:krok', <Zawieszenie />],

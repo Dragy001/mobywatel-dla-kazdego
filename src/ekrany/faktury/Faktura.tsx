@@ -6,7 +6,7 @@ import { formatZl } from '../../logika/pieniadze'
 import { useMagazyn, useUstawienia } from '../../stan/magazyn'
 import { Wiersze } from '../../ui/Karta'
 import { PasekGorny } from '../../ui/PasekGorny'
-import { Przycisk } from '../../ui/Przycisk'
+import { Przycisk, PrzyciskLink } from '../../ui/Przycisk'
 
 export function Faktura() {
   const { id } = useParams()
@@ -17,13 +17,14 @@ export function Faktura() {
   const k = wartoscFaktury(f)
   const wyst = f.rodzaj === 'wystawiona'
   const prosty = widok === 'prosty'
+  const zaplacona = f.zaplacona || stanOsoby.zaplacone.includes(f.id)
   return (
     <>
       <PasekGorny tytul={f.numer} podtytul={wyst ? 'Faktura wystawiona przez Ciebie' : 'Faktura od dostawcy'} />
       <div className="karta karta--zwykla faktura-kwota">
         <span>{wyst ? 'Do zapłaty przez klienta' : 'Do zapłaty'}</span>
         <strong className="kwota kwota--duza">{formatZl(k.brutto)}</strong>
-        <span className={`znaczek ${f.zaplacona ? 'znaczek--sukces' : 'znaczek--ostrz'}`}>{f.zaplacona ? 'zapłacona' : 'niezapłacona'}</span>
+        <span className={`znaczek ${zaplacona ? 'znaczek--sukces' : 'znaczek--ostrz'}`}>{zaplacona ? 'zapłacona' : 'niezapłacona'}</span>
       </div>
       <div className="karta karta--zwykla">
         <Wiersze
@@ -39,6 +40,7 @@ export function Faktura() {
           ]}
         />
       </div>
+      {!wyst && !zaplacona && <PrzyciskLink do={`faktury/${f.id}/zaplac/1`}>Zapłać</PrzyciskLink>}
       <Przycisk ton="drugi" onClick={() => window.print()}><IconPrinter size={22} aria-hidden /> Pobierz PDF</Przycisk>
     </>
   )
