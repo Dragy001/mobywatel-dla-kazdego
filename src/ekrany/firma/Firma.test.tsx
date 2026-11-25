@@ -59,3 +59,9 @@ describe.each(WIDOKI)('skąd ta kwota (%s)', (w) => {
     await bezNaruszen(b.container)
   })
 })
+
+test('„Skąd ta kwota?” wygląda jak przycisk z celem dotyku', () => {
+  renderOsoba('tomasz', 'zwykly', 'firma')
+  const l = screen.getByRole('link', { name: 'Skąd ta kwota? VAT' })
+  expect(l).toHaveClass('pigulka')
+})

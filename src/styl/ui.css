@@ -408,3 +408,7 @@
 .podglad__zakladki span { flex: 1; height: 14px; border-radius: 4px; background: var(--ramka-mocna); }
 .pierwsze__probka { margin: 8px 0 0; font-size: 1.1rem; }
 input[type='range'] { width: 100%; accent-color: var(--akcent); min-height: 44px; }
+
+/* Linki-akcje wyglądające jak przyciski (cel dotyku ≥ 44 px, WCAG 2.5.8) */
+.pigulka--akcja { text-decoration: none; color: var(--akcent-mocny); border-color: var(--akcent); background: var(--akcent-tlo); font-weight: 700; min-height: 44px; }
+.do-zaplaty__wiersz--maly { align-items: center; gap: 8px; flex-wrap: wrap; }

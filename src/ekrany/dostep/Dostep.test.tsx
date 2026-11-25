@@ -37,11 +37,19 @@ describe.each(WIDOKI)('widok %s', (w) => {
 
   test('zly-nip-pokazuje-komunikat', async () => {
     const { container } = renderOsoba('tomasz', w, 'dostep/nowy/1')
-    await userEvent.type(screen.getByLabelText('NIP firmy'), '1234567890')
+    await userEvent.type(screen.getByLabelText('NIP firmy'), '12345')
     await userEvent.click(screen.getByRole('button', { name: 'Dalej' }))
-    expect(screen.getByRole('alert')).toHaveTextContent('Ten NIP ma błąd. Sprawdź cyfry.')
+    expect(screen.getByRole('alert')).toHaveTextContent('NIP ma 10 cyfr.')
     expect(screen.getByText('Krok 1 z 4')).toBeInTheDocument()
     await bezNaruszen(container)
+  })
+
+  test('dowolny 10-cyfrowy NIP przechodzi', async () => {
+    renderOsoba('tomasz', w, 'dostep/nowy/1')
+    await userEvent.type(screen.getByLabelText('NIP firmy'), '123-456-78-90')
+    await userEvent.click(screen.getByRole('button', { name: 'Dalej' }))
+    expect(screen.getByText('Krok 2 z 4')).toBeInTheDocument()
+    expect(screen.getByText(/Firma, NIP 1234567890/)).toBeInTheDocument()
   })
 
   test('zly PESEL', async () => {

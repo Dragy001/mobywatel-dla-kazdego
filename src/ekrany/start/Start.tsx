@@ -53,7 +53,7 @@ function StartZwykly() {
       <section aria-labelledby="dokumenty-tytul">
         <div className="sekcja-naglowek">
           <h2 id="dokumenty-tytul" className="sekcja-tytul">Dokumenty</h2>
-          <Link to={t('dokumenty')} className="link-maly">Wszystkie</Link>
+          <Link to={t('dokumenty')} className="pigulka pigulka--akcja">Wszystkie</Link>
         </div>
         <div className="dokumenty-rzad">
           {osoba.dokumenty.map((d) => (

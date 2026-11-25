@@ -1,18 +1,32 @@
+import { doMowy } from '../logika/mowa'
 import { IconPlayerStop, IconVolume } from '@tabler/icons-react'
 import { useEffect, useState } from 'react'
 
-function tekstDoCzytania(): string {
-  const main = document.querySelector('main')
-  if (!main) return ''
-  const kopia = main.cloneNode(true) as HTMLElement
-  kopia.querySelectorAll('[data-nie-czytaj], button, [aria-hidden="true"]').forEach((e) => e.remove())
-  return (kopia.textContent ?? '').replace(/\s+/g, ' ').trim()
+const PO_KROPCE = new Set(['H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'P', 'LI', 'DD', 'LEGEND', 'LABEL', 'TD', 'TH', 'FIGCAPTION'])
+
+/** Tekst ekranu do czytania: z przerwami po nagłówkach i akapitach, wiersze jako „etykieta: wartość”. */
+export function tekstDoCzytania(root: Element | null = document.querySelector('main')): string {
+  if (!root) return ''
+  let wynik = ''
+  const idz = (n: Node) => {
+    if (n.nodeType === Node.TEXT_NODE) { wynik += n.textContent ?? ''; return }
+    if (!(n instanceof Element)) return
+    if (n.matches('[data-nie-czytaj], button, [aria-hidden="true"], script, style')) return
+    const styl = getComputedStyle(n)
+    if (styl.display === 'none' || styl.visibility === 'hidden') return
+    n.childNodes.forEach(idz)
+    if (n.tagName === 'DT') wynik += ': '
+    else if (PO_KROPCE.has(n.tagName) || !styl.display.startsWith('inline')) wynik += '. '
+  }
+  idz(root)
+  const t = wynik.replace(/\s+/g, ' ').replace(/\s+([.:,])/g, '$1').replace(/([.!?:])(\s*\.)+/g, '$1').trim()
+  return doMowy(t)
 }
 
 export function czytaj(tekst: string) {
   if (!('speechSynthesis' in window)) return
   window.speechSynthesis.cancel()
-  const u = new SpeechSynthesisUtterance(tekst)
+  const u = new SpeechSynthesisUtterance(doMowy(tekst))
   u.lang = 'pl-PL'
   u.rate = 0.95
   window.speechSynthesis.speak(u)

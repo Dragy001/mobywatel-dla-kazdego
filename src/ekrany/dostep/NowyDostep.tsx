@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Navigate } from 'react-router-dom'
 import type { Dostep } from '../../dane/typy'
 import { DZIS, dodajDni, formatData } from '../../logika/daty'
-import { nipPoprawny, szukajPoNip } from '../../logika/faktura'
+import { szukajPoNip } from '../../logika/faktura'
 import { useMagazyn } from '../../stan/magazyn'
 import { useKrok, useSzkic } from '../../ui/kreator'
 import { Kroki } from '../../ui/Kroki'
@@ -41,13 +41,13 @@ export function NowyDostep() {
   const kto = s.rodzaj === 'firma'
     ? (szukajPoNip(nip) ?? osoba.firma.kontrahenci.find((k) => k.nip === nip))?.nazwa ?? `Firma, NIP ${nip}`
     : s.imie.trim()
-  const poprawnyKrok1 = s.rodzaj === 'firma' ? nipPoprawny(nip) : !!s.imie.trim() && /^\d{11}$/.test(s.pesel.trim())
+  const poprawnyKrok1 = s.rodzaj === 'firma' ? /^\d{10}$/.test(nip) : !!s.imie.trim() && /^\d{11}$/.test(s.pesel.trim())
   if (krok > 1 && krok <= 4 && !poprawnyKrok1) return <Navigate to={t(`${BAZA}/1`)} replace />
   if (krok > 4) return <Navigate to={t(`${BAZA}/1`)} replace />
 
   const dalej1 = () => {
     if (s.rodzaj === 'firma') {
-      if (!nipPoprawny(nip)) return setBlad('Ten NIP ma błąd. Sprawdź cyfry.')
+      if (!/^\d{10}$/.test(nip)) return setBlad('NIP ma 10 cyfr.')
     } else {
       if (!s.imie.trim()) return setBlad('Wpisz imię i nazwisko.')
       if (!/^\d{11}$/.test(s.pesel.trim())) return setBlad('PESEL ma 11 cyfr.')

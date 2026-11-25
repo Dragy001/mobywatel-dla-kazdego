@@ -1,4 +1,4 @@
-import { IconBuilding, IconCalendarDue, IconChevronRight, IconCoin, IconFileInvoice, IconFileText, IconListDetails, IconUsers } from '@tabler/icons-react'
+import { IconBuilding, IconCalendarDue, IconChevronRight, IconCoin, IconFileInvoice, IconFileText, IconHelpCircle, IconListDetails, IconUsers } from '@tabler/icons-react'
 import { useState } from 'react'
 import { Link, Navigate } from 'react-router-dom'
 import { dataSlownie } from '../../logika/daty'
@@ -53,7 +53,7 @@ function MojaFirmaZwykla() {
               </div>
               <div className="do-zaplaty__wiersz do-zaplaty__wiersz--maly">
                 <span>do {dataSlownie(x.termin)}</span>
-                <Link to={t(`firma/kwota/${x.rodzaj}`)}>Skąd ta kwota?<span className="sr-only"> {x.nazwa}</span></Link>
+                <Link to={t(`firma/kwota/${x.rodzaj}`)} className="pigulka pigulka--akcja"><IconHelpCircle size={20} aria-hidden />Skąd ta kwota?<span className="sr-only"> {x.nazwa}</span></Link>
               </div>
             </li>
           ))}
