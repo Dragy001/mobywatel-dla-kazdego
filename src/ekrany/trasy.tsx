@@ -21,6 +21,7 @@ import { Terminy } from './terminy/Terminy'
 import { Zaplac } from './terminy/Zaplac'
 import { Sms, SmsWerdykt, SmsZglos } from './sms/Sms'
 import { Historia } from './historia/Historia'
+import { Pit, PitWyslij } from './pit/Pit'
 import { Wznowienie, Zawieszenie } from './ceidg/Zawieszenie'
 
 const ZASLEPKI: [string, string][] = [
@@ -79,6 +80,8 @@ const GOTOWE: [string, JSX.Element][] = [
   ['sms/:id', <SmsWerdykt />],
   ['sms/:id/zglos', <SmsZglos />],
   ['historia', <Historia />],
+  ['pit', <Pit />],
+  ['pit/wyslij', <PitWyslij />],
 ]
 
 export function TrasyOsoby() {

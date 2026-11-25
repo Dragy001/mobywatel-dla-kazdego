@@ -382,3 +382,9 @@
 .werdykt__cechy { margin: 0; padding-left: 1.2em; display: flex; flex-direction: column; gap: 6px; }
 .kroki-lista { margin: 0 0 16px; padding-left: 1.4em; display: flex; flex-direction: column; gap: 8px; }
 .sprawdzenie__kto { margin: 0 0 6px; }
+
+/* PIT-28 */
+.pit__wynik { text-align: center; margin-block: 12px; }
+.pit__wynik .kwota-duza { margin: 4px 0; }
+.pit__etykieta { margin: 0; font-weight: 700; color: var(--tekst-2); }
+.pit__lista { margin-bottom: 16px; }

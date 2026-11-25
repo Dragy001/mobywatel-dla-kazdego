@@ -92,3 +92,23 @@ export function podsumowanie(firma: Firma, stan: StanOsoby, miesiac = '2026-11')
     grudzien: { przychod: przychodGrudnia, vat: vatMiesiaca(faktury, nast).doZaplaty, ryczaltSzacunek: ryczaltGrudnia.doZaplaty },
   }
 }
+
+export interface PitRoczny {
+  przychod: Grosze
+  odliczenia: Grosze
+  podatek: Grosze
+  wplacono: Grosze
+  /** Dodatnia — do dopłaty, ujemna — zwrot. */
+  roznica: Grosze
+  stawka: number
+}
+
+/** Szacunek PIT-28 za rok 2026: grudzień przyjmujemy taki sam jak listopad. */
+export function pitRoczny(firma: Firma, stan: StanOsoby): PitRoczny {
+  const p = podsumowanie(firma, stan)
+  const przychod = p.przychodRok + p.przychod
+  const odliczenia = p.ryczalt.odliczeniaNarastajaco + odliczenieOdPrzychodu(p.zus)
+  const podatek = ryczaltZaMiesiac({ przychodNarastajaco: przychod, odliczeniaNarastajaco: odliczenia, wplaconoWczesniej: 0, stawka: firma.stawkaRyczaltu }).podatekNarastajaco
+  const wplacono = p.ryczalt.podatekNarastajaco
+  return { przychod, odliczenia, podatek, wplacono, roznica: podatek - wplacono, stawka: firma.stawkaRyczaltu }
+}
