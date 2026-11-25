@@ -15,6 +15,8 @@ import { Faktura } from './faktury/Faktura'
 import { NowaFaktura } from './faktury/NowaFaktura'
 import { Asystent } from './asystent/Asystent'
 import { Ceidg } from './ceidg/Ceidg'
+import { Dostep, OdbierzDostep, PrzedluzToken } from './dostep/Dostep'
+import { NowyDostep } from './dostep/NowyDostep'
 import { Wznowienie, Zawieszenie } from './ceidg/Zawieszenie'
 
 const ZASLEPKI: [string, string][] = [
@@ -63,6 +65,10 @@ const GOTOWE: [string, JSX.Element][] = [
   ['ceidg', <Ceidg />],
   ['ceidg/zawies/:krok', <Zawieszenie />],
   ['ceidg/wznow', <Wznowienie />],
+  ['dostep', <Dostep />],
+  ['dostep/token', <PrzedluzToken />],
+  ['dostep/odbierz/:id', <OdbierzDostep />],
+  ['dostep/nowy/:krok', <NowyDostep />],
 ]
 
 export function TrasyOsoby() {

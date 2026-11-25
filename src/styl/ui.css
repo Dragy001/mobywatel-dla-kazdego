@@ -355,3 +355,7 @@
 .punkty { list-style: none; padding: 0; margin: 0 0 16px; display: flex; flex-direction: column; gap: 10px; }
 .punkty .wiersz-ikona { align-items: flex-start; }
 .pole__opis { margin: 6px 0 0; color: var(--tekst-2); font-size: 0.95rem; }
+
+/* Kto ma dostęp */
+.dostep { display: flex; flex-direction: column; gap: 10px; margin-bottom: 12px; }
+.dostep__kto { margin: 0; font-weight: 700; font-size: 1.1rem; }
