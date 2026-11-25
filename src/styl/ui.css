@@ -347,3 +347,11 @@
 .podpowiedzi .pigulka { text-align: left; }
 .pole--wiersz { margin-top: 16px; }
 [data-widok='prosty'] .dymek { font-size: 1.1rem; max-width: 100%; }
+
+/* CEIDG */
+.lista-prosta { list-style: none; padding: 0; margin: 0 0 16px; display: flex; flex-direction: column; gap: 8px; }
+.lista-prosta li { background: var(--powierzchnia); border: 1px solid var(--ramka); border-radius: 12px; padding: 12px 14px; }
+.przyciski-kolumna { display: flex; flex-direction: column; gap: 10px; }
+.punkty { list-style: none; padding: 0; margin: 0 0 16px; display: flex; flex-direction: column; gap: 10px; }
+.punkty .wiersz-ikona { align-items: flex-start; }
+.pole__opis { margin: 6px 0 0; color: var(--tekst-2); font-size: 0.95rem; }

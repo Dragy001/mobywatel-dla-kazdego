@@ -14,6 +14,8 @@ import { Faktury } from './faktury/Faktury'
 import { Faktura } from './faktury/Faktura'
 import { NowaFaktura } from './faktury/NowaFaktura'
 import { Asystent } from './asystent/Asystent'
+import { Ceidg } from './ceidg/Ceidg'
+import { Wznowienie, Zawieszenie } from './ceidg/Zawieszenie'
 
 const ZASLEPKI: [string, string][] = [
   ['start', 'Start'],
@@ -58,6 +60,9 @@ const GOTOWE: [string, JSX.Element][] = [
   ['faktury/:id', <Faktura />],
   ['faktura/nowa/:krok', <NowaFaktura />],
   ['asystent', <Asystent />],
+  ['ceidg', <Ceidg />],
+  ['ceidg/zawies/:krok', <Zawieszenie />],
+  ['ceidg/wznow', <Wznowienie />],
 ]
 
 export function TrasyOsoby() {
