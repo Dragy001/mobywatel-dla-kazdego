@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Navigate, useParams } from 'react-router-dom'
 import { DZIS, formatData } from '../../logika/daty'
 import { formatZl } from '../../logika/pieniadze'
+import { pitRoczny } from '../../logika/firma'
 import { useMagazyn } from '../../stan/magazyn'
 import { Wiersze } from '../../ui/Karta'
 import { useKrok, useSzkic } from '../../ui/kreator'
@@ -23,12 +24,12 @@ type Sposob = keyof typeof SPOSOBY
 export function Zaplac() {
   const { id = '' } = useParams()
   const { krok, idz } = useKrok(`zaplac/${id}`)
-  const { stanOsoby, wyslij } = useMagazyn()
+  const { osoba, stanOsoby, wyslij } = useMagazyn()
   const t = useTrasa()
   const p = usePodsumowanie()
   const [szkic, ustaw, usun] = useSzkic<{ sposob: Sposob }>(`zaplata-${id}`, { sposob: 'eplatnosci' })
   const [zaplacono, setZaplacono] = useState(false)
-  const pl = p ? platnosci(p).find((x) => x.id === id) : undefined
+  const pl = p && osoba.firma ? platnosci(p, pitRoczny(osoba.firma, stanOsoby).roznica).find((x) => x.id === id) : undefined
   if (!pl || !doZaplaty(pl)) return <Navigate to={t('terminy')} replace />
   const kwota = formatZl(pl.kwota!)
   const odbiorca = ODBIORCA[pl.odbiorca]
@@ -38,7 +39,7 @@ export function Zaplac() {
     return (
       <>
         <PasekGorny tytul="Zapłać" wstecz={false} />
-        <Wynik tytul="Zapłacono" wiersze={[['Za co', pl.tytul], ['Kwota', kwota], ['Odbiorca', odbiorca], ['Data', formatData(DZIS)]]} dalej={{ etykieta: 'Gotowe', do: 'terminy' }}>
+        <Wynik bezDopisku tytul="Zapłacono" wiersze={[['Za co', pl.tytul], ['Kwota', kwota], ['Odbiorca', odbiorca], ['Data', formatData(DZIS)]]} dalej={{ etykieta: 'Gotowe', do: 'terminy' }}>
           <p className="uwaga">Płatność pokazowa — pieniądze nie zostały pobrane.</p>
         </Wynik>
       </>

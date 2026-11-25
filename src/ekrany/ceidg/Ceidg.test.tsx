@@ -5,7 +5,7 @@ import { bezNaruszen, renderOsoba, WIDOKI } from '../../test/render'
 const idzDo = (h: string) => act(() => { window.location.hash = h })
 const zawieszona = (s: Parameters<NonNullable<Parameters<typeof renderOsoba>[3]>>[0]) => {
   s.osoby.tomasz.statusFirmy = 'zawieszona'
-  s.osoby.tomasz.zawieszonaOd = '2027-01-01'
+  s.osoby.tomasz.zawieszonaOd = '2026-12-01'
 }
 
 describe.each(WIDOKI)('widok %s', (w) => {
@@ -23,7 +23,7 @@ describe.each(WIDOKI)('widok %s', (w) => {
     await bezNaruszen(container)
     await userEvent.click(screen.getByRole('button', { name: 'Dalej' }))
     for (const z of [
-      'Nie płacisz składek ZUS za czas zawieszenia (zdrowotną płacisz za dni do zawieszenia).',
+      'Nie płacisz składek ZUS za pełne miesiące zawieszenia.',
       'Nie możesz wystawiać faktur ani przyjmować nowych zleceń.',
       'Zostajesz czynnym podatnikiem VAT, ale za miesiące, w których zawieszenie trwa cały miesiąc, nie składasz rozliczenia VAT (JPK).',
       'Możesz zawiesić działalność bezterminowo i wznowić ją w każdej chwili w aplikacji.',
@@ -33,10 +33,10 @@ describe.each(WIDOKI)('widok %s', (w) => {
     await userEvent.click(screen.getByRole('button', { name: 'Zawieś działalność' }))
     expect(screen.getByRole('status')).toHaveTextContent('Działalność zawieszona od 01.01.2027')
     await userEvent.click(screen.getByRole('link', { name: 'Gotowe' }))
-    expect(await screen.findByText('zawieszona od 01.01.2027')).toBeInTheDocument()
+    expect(await screen.findByText('zawieszenie zaplanowane od 01.01.2027')).toBeInTheDocument()
     idzDo('#/tomasz/firma')
     expect(await screen.findByRole('heading', { level: 1, name: 'Moja firma' })).toBeInTheDocument()
-    expect(screen.getByText(/zawieszona od 01.01.2027/)).toBeInTheDocument()
+    expect(screen.getByText(/zawieszenie zaplanowane od 01.01.2027/)).toBeInTheDocument()
   })
 
   test('data wcześniejsza niż jutro → komunikat', async () => {

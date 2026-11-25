@@ -13,6 +13,7 @@ import { useTrasa } from '../../ui/trasa'
 import { Wynik } from '../../ui/Wynik'
 
 const TERMIN = '2027-04-30'
+const TERMIN_GRUDNIA = '2027-01-20'
 const DO_SPRAWDZENIA = [
   'Czy wszystkie faktury z grudnia są już w KSeF.',
   'Czy przysługują Ci ulgi, np. za internet albo darowizny — dopisz je przed wysłaniem.',
@@ -25,7 +26,7 @@ function usePit() {
   return useMemo(() => (osoba.firma ? pitRoczny(osoba.firma, stanOsoby) : null), [osoba.firma, stanOsoby])
 }
 
-const wynikSlowami = (r: number) => (r >= 0 ? 'Do dopłaty' : 'Do zwrotu')
+const wynikSlowami = (r: number) => (r >= 0 ? 'Zostaje do zapłaty' : 'Do zwrotu')
 
 export function Pit() {
   const pit = usePit()
@@ -40,7 +41,8 @@ export function Pit() {
       <section className="karta karta--zwykla pit__wynik" aria-label="Wynik rozliczenia">
         <p className="pit__etykieta">{wynikSlowami(pit.roznica)}</p>
         <p className="kwota-duza">{formatZl(Math.abs(pit.roznica))}</p>
-        <p className="opcja__opis">do {formatData(TERMIN)}</p>
+        <p className="opcja__opis">do {formatData(pit.roznica >= 0 ? TERMIN_GRUDNIA : TERMIN)}</p>
+        {pit.roznica >= 0 && <p className="akapit">Zapłacisz to jako zaliczkę za grudzień do {formatData(TERMIN_GRUDNIA)} albo razem z PIT-28, jeśli wyślesz go przed tym dniem.</p>}
       </section>
       <div className="karta karta--zwykla">
         <Wiersze
@@ -73,7 +75,7 @@ export function PitWyslij() {
     return (
       <>
         <PasekGorny tytul="Wyślij PIT-28" wstecz={false} />
-        <Wynik tytul="PIT-28 wysłany" wiersze={[...wiersze, ['Data wysłania', formatData(DZIS)]]} dalej={{ etykieta: 'Gotowe', do: 'firma' }}>
+        <Wynik bezDopisku tytul="PIT-28 wysłany" wiersze={[...wiersze, ['Data wysłania', formatData(DZIS)]]} dalej={{ etykieta: 'Gotowe', do: 'firma' }}>
           <p className="uwaga">Wysyłka pokazowa — nic nie trafiło do urzędu skarbowego.</p>
         </Wynik>
       </>

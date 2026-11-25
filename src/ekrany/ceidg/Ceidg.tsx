@@ -2,6 +2,7 @@ import { IconHomeEdit, IconPlayerPause, IconPlayerPlay } from '@tabler/icons-rea
 import { Navigate } from 'react-router-dom'
 import type { ReactNode } from 'react'
 import { formatData } from '../../logika/daty'
+import { zawieszonaTeraz } from '../../logika/firma'
 import { useMagazyn, useUstawienia } from '../../stan/magazyn'
 import { DuzyPrzycisk } from '../../ui/DuzyPrzycisk'
 import { Wiersze } from '../../ui/Karta'
@@ -11,9 +12,10 @@ import { useTrasa } from '../../ui/trasa'
 
 export function StatusFirmy() {
   const { stanOsoby } = useMagazyn()
-  return stanOsoby.statusFirmy === 'aktywna'
-    ? <span className="znaczek znaczek--sukces">aktywna</span>
-    : <span className="znaczek znaczek--ostrz">zawieszona od {formatData(stanOsoby.zawieszonaOd!)}</span>
+  if (stanOsoby.statusFirmy === 'aktywna') return <span className="znaczek znaczek--sukces">aktywna</span>
+  return zawieszonaTeraz(stanOsoby)
+    ? <span className="znaczek znaczek--ostrz">zawieszona od {formatData(stanOsoby.zawieszonaOd!)}</span>
+    : <span className="znaczek znaczek--neutralny">zawieszenie zaplanowane od {formatData(stanOsoby.zawieszonaOd!)}</span>
 }
 
 export function Ceidg() {

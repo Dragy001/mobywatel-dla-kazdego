@@ -2,6 +2,7 @@ import { IconFileText } from '@tabler/icons-react'
 import { Navigate } from 'react-router-dom'
 import { dataSlownie, formatData, zaIleDni } from '../../logika/daty'
 import { formatZl } from '../../logika/pieniadze'
+import { pitRoczny } from '../../logika/firma'
 import { useMagazyn, useUstawienia } from '../../stan/magazyn'
 import { DuzyPrzycisk } from '../../ui/DuzyPrzycisk'
 import { PasekGorny } from '../../ui/PasekGorny'
@@ -14,13 +15,13 @@ import { doZaplaty, platnosci } from './platnosci'
 const MIESIACE: [string, string][] = [['2026-12', 'Grudzień 2026'], ['2027-01', 'Styczeń 2027'], ['2027-02', 'Luty 2027']]
 
 export function Terminy() {
-  const { stanOsoby, wyslij } = useMagazyn()
+  const { osoba, stanOsoby, wyslij } = useMagazyn()
   const { widok } = useUstawienia()
   const t = useTrasa()
   const p = usePodsumowanie()
   if (!p) return <Navigate to={t('start')} replace />
   const prosty = widok === 'prosty'
-  const lista = platnosci(p)
+  const lista = platnosci(p, pitRoczny(osoba.firma!, stanOsoby).roznica)
 
   return (
     <>

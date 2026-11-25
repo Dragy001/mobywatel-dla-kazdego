@@ -30,8 +30,8 @@ test('prosty: zdanie z sumą i najbliższym terminem', async () => {
 })
 
 test('zawieszona firma ma status zawieszona', () => {
-  renderOsoba('tomasz', 'zwykly', 'firma', (s) => { s.osoby.tomasz.statusFirmy = 'zawieszona'; s.osoby.tomasz.zawieszonaOd = '2027-01-01' })
-  expect(screen.getByText(/zawieszona od 01.01.2027/)).toBeInTheDocument()
+  renderOsoba('tomasz', 'zwykly', 'firma', (s) => { s.osoby.tomasz.statusFirmy = 'zawieszona'; s.osoby.tomasz.zawieszonaOd = '2026-12-01' })
+  expect(screen.getByText(/zawieszona od 01.12.2026/)).toBeInTheDocument()
 })
 
 test('Halina nie ma firmy — wraca na start', () => {

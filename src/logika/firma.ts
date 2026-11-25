@@ -1,4 +1,5 @@
 import type { Faktura, Firma, StanOsoby } from '../dane/typy'
+import { DZIS } from './daty'
 import { bruttoZNetto, type Grosze, type KwotyVat } from './pieniadze'
 import { odliczenieOdPrzychodu, ryczaltZaMiesiac, vatZaMiesiac, zusZaMiesiac, type Ryczalt, type Vat, type Zus } from './podatki'
 
@@ -111,4 +112,9 @@ export function pitRoczny(firma: Firma, stan: StanOsoby): PitRoczny {
   const podatek = ryczaltZaMiesiac({ przychodNarastajaco: przychod, odliczeniaNarastajaco: odliczenia, wplaconoWczesniej: 0, stawka: firma.stawkaRyczaltu }).podatekNarastajaco
   const wplacono = p.ryczalt.podatekNarastajaco
   return { przychod, odliczenia, podatek, wplacono, roznica: podatek - wplacono, stawka: firma.stawkaRyczaltu }
+}
+
+/** Zawieszenie działa dopiero od zgłoszonej daty. */
+export function zawieszonaTeraz(stan: Pick<StanOsoby, 'statusFirmy' | 'zawieszonaOd'>, dzis = DZIS): boolean {
+  return stan.statusFirmy === 'zawieszona' && !!stan.zawieszonaOd && stan.zawieszonaOd <= dzis
 }

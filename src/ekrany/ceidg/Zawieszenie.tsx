@@ -15,7 +15,7 @@ const BAZA = 'ceidg/zawies'
 const JUTRO = dodajDni(DZIS, 1)
 
 export const CO_SIE_STANIE: [string, typeof IconCash][] = [
-  ['Nie płacisz składek ZUS za czas zawieszenia (zdrowotną płacisz za dni do zawieszenia).', IconCash],
+  ['Nie płacisz składek ZUS za pełne miesiące zawieszenia.', IconCash],
   ['Nie możesz wystawiać faktur ani przyjmować nowych zleceń.', IconFileOff],
   ['Zostajesz czynnym podatnikiem VAT, ale za miesiące, w których zawieszenie trwa cały miesiąc, nie składasz rozliczenia VAT (JPK).', IconReceiptTax],
   ['Możesz zawiesić działalność bezterminowo i wznowić ją w każdej chwili w aplikacji.', IconRefresh],

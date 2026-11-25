@@ -17,7 +17,8 @@
 
 /* ---------- pasek górny ---------- */
 .pasek-gorny { padding: 14px 0 4px; display: flex; flex-direction: column; gap: 10px; }
-.pasek-gorny__rzad { display: flex; justify-content: space-between; align-items: center; gap: 8px; min-height: 44px; }
+.pasek-gorny__rzad { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px; min-height: 44px; }
+.pasek-gorny__rzad > :last-child { margin-left: auto; }
 .pasek-gorny__tytul { font-size: 1.75rem; font-weight: 700; letter-spacing: -0.01em; }
 .pasek-gorny__tytul:focus { outline: none; box-shadow: none; }
 .pasek-gorny__podtytul { color: var(--tekst-2); }
@@ -213,7 +214,7 @@
 
 /* ---------- start ---------- */
 .start__naglowek { padding: 14px 0 0; display: flex; flex-direction: column; gap: 10px; }
-.start__akcje { display: inline-flex; gap: 8px; }
+.start__akcje { display: inline-flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; max-width: 100%; }
 .pigulka--ikona { padding: 0; width: 44px; justify-content: center; color: var(--tekst); }
 [data-widok='prosty'] .pigulka--ikona { width: 56px; }
 .asystent-pole {
@@ -246,7 +247,7 @@
 .zdanie-dnia { display: flex; flex-direction: column; gap: 12px; font-size: 1.15em; font-weight: 600; }
 .zdanie-dnia__akcja { align-self: flex-start; display: inline-flex; align-items: center; min-height: 56px; padding: 0 22px; border-radius: 999px; background: var(--ostrz); color: var(--ostrz-tlo); font-weight: 800; text-decoration: none; }
 .duze-przyciski { display: flex; flex-direction: column; gap: 12px; }
-.pigulka { white-space: nowrap; }
+.pigulka { white-space: nowrap; max-width: 100%; }
 .pigulka svg, .zakladki__link svg, .duzy__ikona svg, .zadanie__ikona svg { width: 1.25em; height: 1.25em; }
 .duzy__ikona svg { width: 1.5em; height: 1.5em; }
 [data-widok='prosty'] .start__naglowek .znak__tekst { display: none; }
@@ -267,7 +268,7 @@
 .dok__dane { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
 .dok__osoba { font-weight: 800; letter-spacing: 0.04em; overflow-wrap: anywhere; }
 .dok__podpis { opacity: 0.92; font-size: 0.9rem; }
-.dok__hologram { position: absolute; right: -30px; top: -30px; width: 140px; height: 140px; border-radius: 50%; background: radial-gradient(circle, rgb(255 255 255 / 22%), transparent 70%); }
+.dok__hologram { position: absolute; right: 0; top: 0; width: 110px; height: 110px; border-top-right-radius: 20px; border-radius: 50%; background: radial-gradient(circle, rgb(255 255 255 / 22%), transparent 70%); }
 .kod-sekcja { display: flex; flex-direction: column; gap: 12px; align-items: center; text-align: center; }
 .kod { width: min(240px, 70%); height: auto; border-radius: 8px; }
 
@@ -344,7 +345,7 @@
 .dymek--ty { background: var(--akcent); color: var(--na-akcencie); align-self: flex-end; border-bottom-right-radius: 6px; }
 .dymek .karta { margin-top: 4px; display: flex; flex-direction: column; gap: 10px; }
 .podpowiedzi { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
-.podpowiedzi .pigulka { text-align: left; }
+.podpowiedzi .pigulka { text-align: left; white-space: normal; height: auto; min-height: 44px; padding-block: 8px; max-width: 100%; }
 .pole--wiersz { margin-top: 16px; }
 [data-widok='prosty'] .dymek { font-size: 1.1rem; max-width: 100%; }
 

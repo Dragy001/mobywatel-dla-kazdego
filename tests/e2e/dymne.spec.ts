@@ -28,8 +28,19 @@ for (const osoba of ['halina', 'tomasz'] as const)
         await page.evaluate((h) => { location.hash = h }, `#/${osoba}/${t}`)
         await page.evaluate(() => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r))))
         tytuly.add(await page.locator('main h1').first().innerText())
-        const [sw, cw] = await page.evaluate(() => [document.documentElement.scrollWidth, document.documentElement.clientWidth])
-        if (sw > cw) zle.push(`${t}: ${sw} > ${cw}`)
+        const problem = await page.evaluate(() => {
+          const d = document.documentElement
+          if (d.scrollWidth > d.clientWidth) return `strona ${d.scrollWidth} > ${d.clientWidth}`
+          const m = document.getElementById('tresc')!
+          if (m.scrollWidth > m.clientWidth) return `#tresc ${m.scrollWidth} > ${m.clientWidth}`
+          const wPrzewijanym = (e: Element) => {
+            for (let p = e.parentElement; p && p !== m; p = p.parentElement) if (getComputedStyle(p).overflowX !== 'visible') return true
+            return false
+          }
+          const poza = [...m.querySelectorAll('*')].find((e) => e.getBoundingClientRect().right > window.innerWidth + 0.5 && !wPrzewijanym(e))
+          return poza ? `poza ekranem: ${poza.tagName}.${poza.className} ${Math.round(poza.getBoundingClientRect().right)}` : ''
+        })
+        if (problem) zle.push(`${t}: ${problem}`)
       }
       expect(zle).toEqual([])
       expect(tytuly.size).toBeGreaterThan(osoba === 'tomasz' ? 25 : 10)

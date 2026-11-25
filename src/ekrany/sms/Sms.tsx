@@ -84,7 +84,7 @@ export function SmsZglos() {
     return (
       <>
         <PasekGorny tytul="Zgłoś SMS-a" wstecz={false} />
-        <Wynik tytul="Zgłoszenie wysłane" wiersze={[['Nadawca', s.nadawca], ['Do kogo', 'CERT Polska'], ['Data', formatData(DZIS)]]} dalej={{ etykieta: 'Gotowe', do: 'start' }}>
+        <Wynik bezDopisku tytul="Zgłoszenie wysłane" wiersze={[['Nadawca', s.nadawca], ['Do kogo', 'CERT Polska'], ['Data', formatData(DZIS)]]} dalej={{ etykieta: 'Gotowe', do: 'start' }}>
           <p className="uwaga">Zgłoszenie pokazowe — nic nie zostało wysłane. W prawdziwej aplikacji SMS trafi do CERT Polska, a strona z linku może zostać zablokowana.</p>
         </Wynik>
       </>

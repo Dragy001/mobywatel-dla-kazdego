@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { Navigate } from 'react-router-dom'
+import { useTrasa } from '../../ui/trasa'
 import { dataSlownie, DZIS, dodajDni, formatData } from '../../logika/daty'
 import { useMagazyn, useUstawienia } from '../../stan/magazyn'
 import { Wiersze } from '../../ui/Karta'
@@ -19,7 +21,8 @@ const BAZA = 'dowod/wniosek'
 
 export function WniosekODowod() {
   const { krok, idz } = useKrok(BAZA)
-  const { osoba, wyslij } = useMagazyn()
+  const { osoba, stanOsoby, wyslij } = useMagazyn()
+  const t = useTrasa()
   const { widok } = useUstawienia()
   const [szkic, ustaw, usun] = useSzkic<{ urzad?: string }>('wniosek-dowod', {})
   const [blad, setBlad] = useState('')
@@ -28,6 +31,8 @@ export function WniosekODowod() {
   const urzad = URZEDY.find((u) => u.id === szkic.urzad)
   const gotowy = urzad ? dodajDni(DZIS, urzad.dni) : ''
 
+  const zlozony = stanOsoby.wnioski.some((w) => w.id === 'dowod')
+  if ((krok >= 4 && !zlozony) || (krok === 3 && !urzad)) return <Navigate to={t(`${BAZA}/1`)} replace />
   if (krok >= 4)
     return (
       <>

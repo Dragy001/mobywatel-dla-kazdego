@@ -6,7 +6,7 @@ describe.each(WIDOKI)('widok %s', (w) => {
   test('podgląd PIT-28 i wysyłka pokazowa', async () => {
     const { container } = renderOsoba('tomasz', w, 'pit')
     expect(screen.getByText(/grudzień przyjęliśmy taki sam jak listopad/)).toBeInTheDocument()
-    expect(screen.getByRole('region', { name: 'Wynik rozliczenia' })).toHaveTextContent('Do dopłaty')
+    expect(screen.getByRole('region', { name: 'Wynik rozliczenia' })).toHaveTextContent('Zostaje do zapłaty')
     expect(screen.getByRole('heading', { name: 'Do sprawdzenia przed wysłaniem' })).toBeInTheDocument()
     await bezNaruszen(container)
     await userEvent.click(screen.getByRole('link', { name: 'Wyślij przez e-Urząd Skarbowy' }))

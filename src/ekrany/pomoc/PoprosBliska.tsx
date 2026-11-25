@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { Navigate } from 'react-router-dom'
+import { useTrasa } from '../../ui/trasa'
 import { zadaniaDla } from '../../logika/zadania'
 import { useMagazyn } from '../../stan/magazyn'
 import { doKiedySlownie } from '../../ui/PasekPomocnika'
@@ -24,6 +26,8 @@ export function PoprosBliska() {
   const kto = osoba.pomocnicy.find((p) => p.id === szkic.pomocnikId)
   const sprawa = zadaniaDla(osoba, stanOsoby)[0]?.tytul ?? 'Pytania o aplikację'
   const czas = CZAS.find((c) => c.id === szkic.czas)
+  const t = useTrasa()
+  if ((krok >= 5 && !stanOsoby.pomoc) || (krok >= 2 && krok <= 4 && !kto) || (krok === 4 && !czas)) return <Navigate to={t('pomoc/bliska/1')} replace />
 
   if (krok >= 5)
     return (
@@ -97,7 +101,8 @@ export function PoprosBliska() {
           uwaga={`${kto?.imie ?? 'Ta osoba'} zobaczy tylko tę sprawę. Nie zobaczy Twoich innych dokumentów. Możesz to zakończyć w każdej chwili.`}
           etykieta="Poproś o pomoc"
           onPotwierdz={() => {
-            if (kto && czas) wyslij({ t: 'popros', pomoc: { pomocnikId: kto.id, sprawa, doKiedy: czas.doKiedy } })
+            if (!kto || !czas) return
+            wyslij({ t: 'popros', pomoc: { pomocnikId: kto.id, sprawa, doKiedy: czas.doKiedy } })
             usun()
             idz(5)
           }}

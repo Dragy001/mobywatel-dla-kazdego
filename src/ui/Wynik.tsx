@@ -3,7 +3,9 @@ import type { ReactNode } from 'react'
 import { Wiersze } from './Karta'
 import { Dol, PrzyciskLink } from './Przycisk'
 
-export function Wynik({ tytul, wiersze, dalej, children }: { tytul: string; wiersze: [string, string][]; dalej: { etykieta: string; do: string }; children?: ReactNode }) {
+export const DOPISEK_POKAZOWY = 'To wersja pokazowa — nic nie zostało wysłane.'
+
+export function Wynik({ tytul, wiersze, dalej, children, bezDopisku }: { tytul: string; wiersze: [string, string][]; dalej: { etykieta: string; do: string }; children?: ReactNode; bezDopisku?: boolean }) {
   return (
     <section className="wynik">
       <div role="status" className="wynik__naglowek">
@@ -12,6 +14,7 @@ export function Wynik({ tytul, wiersze, dalej, children }: { tytul: string; wier
       </div>
       <div className="karta karta--zwykla"><Wiersze wiersze={wiersze} /></div>
       {children}
+      {!bezDopisku && <p className="uwaga">{DOPISEK_POKAZOWY}</p>}
       <Dol><PrzyciskLink do={dalej.do}>{dalej.etykieta}</PrzyciskLink></Dol>
     </section>
   )

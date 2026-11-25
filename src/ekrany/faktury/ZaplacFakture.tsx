@@ -35,7 +35,7 @@ export function ZaplacFakture() {
     return (
       <>
         <PasekGorny tytul="Zapłać fakturę" wstecz={false} />
-        <Wynik tytul="Zapłacono" wiersze={[['Faktura', f.numer], ['Odbiorca', f.kontrahent.nazwa], ['Kwota', kwota], ['Data', formatData(DZIS)]]} dalej={{ etykieta: 'Gotowe', do: `faktury/${f.id}` }}>
+        <Wynik bezDopisku tytul="Zapłacono" wiersze={[['Faktura', f.numer], ['Odbiorca', f.kontrahent.nazwa], ['Kwota', kwota], ['Data', formatData(DZIS)]]} dalej={{ etykieta: 'Gotowe', do: `faktury/${f.id}` }}>
           <p className="uwaga">Płatność pokazowa — pieniądze nie zostały pobrane.</p>
         </Wynik>
       </>

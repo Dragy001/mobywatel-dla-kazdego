@@ -1,9 +1,10 @@
 import { IconBuildingStore, IconSearch } from '@tabler/icons-react'
-import { useState } from 'react'
 import { Navigate } from 'react-router-dom'
 import { DZIS, formatData, dodajDni } from '../../logika/daty'
 import { kwotySzkicu, nipPoprawny, SZKIC_POCZATKOWY, szukajPoNip, zbudujFakture, type SzkicFaktury } from '../../logika/faktura'
-import { wszystkieFaktury } from '../../logika/firma'
+import { wszystkieFaktury, zawieszonaTeraz } from '../../logika/firma'
+import { useTrasa } from '../../ui/trasa'
+import { useEffect, useState } from 'react'
 import { formatZl } from '../../logika/pieniadze'
 import { useMagazyn, useUstawienia } from '../../stan/magazyn'
 import { useKrok, useSzkic } from '../../ui/kreator'
@@ -23,12 +24,15 @@ export function NowaFaktura() {
   const { widok } = useUstawienia()
   const [szkic, ustaw, usun] = useSzkic<SzkicFaktury & { nowy?: boolean; nip?: string; inna?: boolean }>('nowa-faktura', SZKIC_POCZATKOWY)
   const [blad, setBlad] = useState('')
-  const [wyslana, setWyslana] = useState<string | null>(null)
+  const [wynik, ustawWynik, usunWynik] = useSzkic<{ id?: string }>('nowa-faktura-wynik', {})
+  const wyslana = wynik.id
+  const t = useTrasa()
+  useEffect(() => { if (krok === 1 && wynik.id) usunWynik() }, [krok, wynik.id]) // eslint-disable-line react-hooks/exhaustive-deps
   const firma = osoba.firma
   if (!firma) return <Navigate to="../start" replace />
   const prosty = widok === 'prosty'
 
-  if (stanOsoby.statusFirmy === 'zawieszona')
+  if (zawieszonaTeraz(stanOsoby))
     return (
       <>
         <PasekGorny tytul="Wystaw fakturę" />
@@ -59,7 +63,7 @@ export function NowaFaktura() {
         </Wynik>
       </>
     )
-  if (krok >= 4) return <Navigate to={`../${BAZA}/1`} replace />
+  if (krok >= 4) return <Navigate to={t('faktury')} replace />
 
   const kwoty = kwotySzkicu(szkic)
   const kontrahent = szkic.kontrahent
@@ -90,7 +94,7 @@ export function NowaFaktura() {
     const f = zbudujFakture(szkic, numer, DZIS, firma.nip)
     setTimeout(() => {
       wyslij({ t: 'wystawFakture', faktura: f })
-      setWyslana(f.id)
+      ustawWynik({ id: f.id })
       usun()
       idz(4)
     }, OPOZNIENIE)
@@ -205,7 +209,7 @@ export function NowaFaktura() {
           onPotwierdz={wyslijDoKsef}
         />
       )}
-      {krok === 3 && !(kontrahent && kwoty) && <Navigate to={`../${BAZA}/1`} replace />}
+      {krok === 3 && !(kontrahent && kwoty) && <Navigate to={t(wyslana ? `faktury/${wyslana}` : `${BAZA}/1`)} replace />}
     </>
   )
 }

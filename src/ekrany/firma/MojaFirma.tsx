@@ -1,10 +1,11 @@
 import { IconBuilding, IconCalendarDue, IconChevronRight, IconCoin, IconFileInvoice, IconFileText, IconListDetails, IconUsers } from '@tabler/icons-react'
 import { useState } from 'react'
 import { Link, Navigate } from 'react-router-dom'
-import { dataSlownie, formatData } from '../../logika/daty'
+import { dataSlownie } from '../../logika/daty'
 import { formatZl } from '../../logika/pieniadze'
 import { useMagazyn, useUstawienia } from '../../stan/magazyn'
 import { DuzyPrzycisk } from '../../ui/DuzyPrzycisk'
+import { StatusFirmy } from '../ceidg/Ceidg'
 import { PasekGorny } from '../../ui/PasekGorny'
 import { PrzyciskLink } from '../../ui/Przycisk'
 import { useTrasa } from '../../ui/trasa'
@@ -18,12 +19,6 @@ const WEJSCIA = [
   { do: 'pit', etykieta: 'Rozliczenie roczne', opis: 'PIT-28 za 2026', ikona: IconFileText },
 ]
 
-function StatusFirmy() {
-  const { stanOsoby } = useMagazyn()
-  return stanOsoby.statusFirmy === 'aktywna'
-    ? <span className="znaczek znaczek--sukces">aktywna</span>
-    : <span className="znaczek znaczek--ostrz">zawieszona od {formatData(stanOsoby.zawieszonaOd!)}</span>
-}
 
 function MojaFirmaZwykla() {
   const { osoba } = useMagazyn()
