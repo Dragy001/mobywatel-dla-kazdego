@@ -47,7 +47,7 @@ export function zbudujFakture(szkic: SzkicFaktury, kolejnyNumer: number, dzis: s
 }
 
 /** Pokazowy „rejestr” firm — w prawdziwej aplikacji dane przyszłyby z CEIDG/KRS i białej listy VAT. */
-const REJESTR: Kontrahent[] = [
+export const REJESTR: Kontrahent[] = [
   { nip: '7831220469', nazwa: 'Biuro Podróży Horyzont sp. z o.o.', adres: 'ul. Święty Marcin 29, 61-806 Poznań' },
   { nip: '5218320463', nazwa: 'Kowalski Meble Jan Kowalski', adres: 'ul. Dworcowa 3, 62-020 Swarzędz' },
   { nip: '6772220466', nazwa: 'Teatr Mały Scena Sp. z o.o.', adres: 'ul. Kramarska 4, 61-765 Poznań' },

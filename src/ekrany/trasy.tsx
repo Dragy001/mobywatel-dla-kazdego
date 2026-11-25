@@ -13,6 +13,7 @@ import { SkadKwota } from './firma/SkadKwota'
 import { Faktury } from './faktury/Faktury'
 import { Faktura } from './faktury/Faktura'
 import { NowaFaktura } from './faktury/NowaFaktura'
+import { Asystent } from './asystent/Asystent'
 
 const ZASLEPKI: [string, string][] = [
   ['start', 'Start'],
@@ -56,6 +57,7 @@ const GOTOWE: [string, JSX.Element][] = [
   ['faktury', <Faktury />],
   ['faktury/:id', <Faktura />],
   ['faktura/nowa/:krok', <NowaFaktura />],
+  ['asystent', <Asystent />],
 ]
 
 export function TrasyOsoby() {
