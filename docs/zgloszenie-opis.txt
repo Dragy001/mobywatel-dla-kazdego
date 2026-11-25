@@ -1,0 +1,33 @@
+mObywatel dla każdego: prosty dla seniora, użyteczny dla firmy
+
+Problem
+mObywatel ma dziś dwie grupy, którym trudno go używać. Starsze osoby gubią się w zakładkach i małych przyciskach, a większe litery nie wystarczają, bo układ ekranu zostaje ten sam. Osoby z jednoosobową firmą widzą w aplikacji tylko dane z rejestru, a podatki, ZUS i faktury w KSeF załatwiają w pięciu różnych serwisach.
+
+Rozwiązanie
+1. Prosty widok jako osobny układ, nie tylko większe litery. Każdy ekran, także sprawy firmy, ma własną wersję: jedna sprawa naraz, duże przyciski z opisem, mniej informacji, czytanie na głos i stały przycisk „Poproś o pomoc”. Przy pierwszym uruchomieniu osoba sama wybiera wygląd i rozmiar tekstu, z podglądem na żywo.
+2. Pomoc bliskiej osoby z ograniczonym zakresem. Pani Halina prosi wnuczkę o pomoc w jednej sprawie i na określony czas. Na górze ekranu cały czas widać, kto pomaga i do kiedy, a pomoc można zakończyć jednym przyciskiem.
+3. Ochrona przed oszustwami. „Czy ten SMS to oszustwo?” pokazuje werdykt prostymi słowami, mówi, co zrobić, i pozwala zgłosić wiadomość do CERT Polska. „Kto sprawdzał moje dane” pokazuje, kto i po co sprawdzał mDowód.
+4. Firma w aplikacji. Pan Tomasz, grafik na ryczałcie z VAT:
+- wystawia fakturę do KSeF w trzech krokach, z VAT liczonym na żywo i obowiązkowym ekranem „Sprawdź i potwierdź”;
+- widzi, ile zapłaci w tym miesiącu (VAT, ryczałt, ZUS), a przy każdej kwocie „Skąd ta kwota” rozpisuje obliczenie krok po kroku; może też wpisać kwotę od księgowej i zobaczyć różnicę z możliwymi przyczynami;
+- ma terminy na trzy miesiące z przypomnieniem i płatność przez ePłatności;
+- płacąc fakturę od dostawcy, dostaje sprawdzenie rachunku na białej liście VAT i ostrzeżenie, gdy rachunku tam nie ma;
+- zawiesza i wznawia działalność w CEIDG, z ekranem „Co się stanie” (ZUS, faktury, VAT), i zmienia adres firmy;
+- kontroluje, kto ma dostęp do jego faktur w KSeF: odbiera dostęp biuru rachunkowemu, nadaje nowy z zakresem i datą końca, przedłuża token KSeF, zanim wygaśnie;
+- widzi szacunek rocznego PIT-28 z listą rzeczy do sprawdzenia przed wysłaniem.
+5. Asystent na gotowych scenariuszach. Rozumie pytania typu „Co mam zapłacić w tym miesiącu?” albo „Wystaw fakturę dla Kowalskiego na 2000 zł” i prowadzi do właściwego ekranu z wypełnionym szkicem. Nic nie dzieje się bez potwierdzenia człowieka.
+
+Zasady projektu
+- Każda czynność kończy się ekranem „Sprawdź i potwierdź”, a potem jasnym wynikiem.
+- Strona główna mówi, co trzeba zrobić i do kiedy, zamiast pokazywać katalog usług.
+- Kwoty i daty piszemy słowami („do 20 grudnia”, „za 15 dni”), a urzędowe nazwy tłumaczymy.
+- Dostępność: obsługa klawiaturą, nazwy przycisków dla czytników ekranu, kontrast, ciemny motyw, brak przewijania w poziomie przy szerokości 360 px i tekście powiększonym o 50%. Testy automatyczne (Vitest, axe, Playwright) sprawdzają oba widoki na każdym ekranie.
+
+Jak obejrzeć
+Prototyp działa w przeglądarce, bez logowania. Na komputerze po prawej jest lista „Co sprawdzić”, a obok telefon z aplikacją. Do wyboru dwie osoby: Halina Nowak (71 lat, Radom, prosty widok) i Tomasz Wójcik (34 lata, Poznań, firma). Przycisk „Zacznij od nowa” w Ustawieniach przywraca dane startowe.
+
+Zastrzeżenia
+To koncepcja, a nie aplikacja rządowa. Wszystkie osoby, firmy, numery NIP, PESEL, rachunki i dokumenty są fikcyjne. Płatności, wysyłka do KSeF, CEIDG, CERT Polska i e-Urzędu Skarbowego są udawane i niczego nie wysyłają. Stawki ZUS i zasady liczenia ryczałtu odpowiadają przepisom na 2026 rok, ale kwoty mają charakter poglądowy. Prototyp nie używa godła ani logotypu mObywatela.
+
+Link: https://dragy001.github.io/mobywatel-dla-kazdego/
+Kod: https://github.com/Dragy001/mobywatel-dla-kazdego
