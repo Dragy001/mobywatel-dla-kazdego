@@ -359,3 +359,13 @@
 /* Kto ma dostęp */
 .dostep { display: flex; flex-direction: column; gap: 10px; margin-bottom: 12px; }
 .dostep__kto { margin: 0; font-weight: 700; font-size: 1.1rem; }
+
+/* Terminy i płatności */
+.terminy { list-style: none; padding: 0; margin: 0 0 8px; display: flex; flex-direction: column; gap: 10px; }
+.termin { display: flex; flex-direction: column; gap: 8px; }
+.termin__data { display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+.termin__tresc { display: flex; flex-direction: column; gap: 4px; }
+.termin__kwota { font-weight: 700; font-variant-numeric: tabular-nums; }
+.termin--zaplacone { opacity: 0.85; }
+.termin--zaplacone .termin__kwota { text-decoration: line-through; }
+.kwota-duza { font-size: 2.2rem; font-weight: 800; margin: 8px 0 16px; font-variant-numeric: tabular-nums; }

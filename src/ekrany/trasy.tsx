@@ -17,6 +17,8 @@ import { Asystent } from './asystent/Asystent'
 import { Ceidg } from './ceidg/Ceidg'
 import { Dostep, OdbierzDostep, PrzedluzToken } from './dostep/Dostep'
 import { NowyDostep } from './dostep/NowyDostep'
+import { Terminy } from './terminy/Terminy'
+import { Zaplac } from './terminy/Zaplac'
 import { Wznowienie, Zawieszenie } from './ceidg/Zawieszenie'
 
 const ZASLEPKI: [string, string][] = [
@@ -69,6 +71,8 @@ const GOTOWE: [string, JSX.Element][] = [
   ['dostep/token', <PrzedluzToken />],
   ['dostep/odbierz/:id', <OdbierzDostep />],
   ['dostep/nowy/:krok', <NowyDostep />],
+  ['terminy', <Terminy />],
+  ['zaplac/:id/:krok', <Zaplac />],
 ]
 
 export function TrasyOsoby() {
