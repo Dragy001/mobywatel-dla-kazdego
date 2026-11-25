@@ -1,5 +1,6 @@
 import { IconChecklist } from '@tabler/icons-react'
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
+import { useSzkic } from '../../ui/kreator'
 import { Navigate } from 'react-router-dom'
 import { DZIS, formatData } from '../../logika/daty'
 import { pitRoczny } from '../../logika/firma'
@@ -59,7 +60,8 @@ export function Pit() {
       </div>
       <h2 className="sekcja-tytul"><IconChecklist size={22} aria-hidden /> Do sprawdzenia przed wysłaniem</h2>
       <ul className="werdykt__cechy pit__lista">{DO_SPRAWDZENIA.map((d) => <li key={d}>{d}</li>)}</ul>
-      <Dol><PrzyciskLink do="pit/wyslij">Wyślij przez e-Urząd Skarbowy</PrzyciskLink></Dol>
+      {DZIS < '2027-01-01' && <p className="akapit">Zeznanie za 2026 wyślesz od 1 stycznia 2027, gdy rok się skończy. Teraz możesz zobaczyć, jak to będzie wyglądać.</p>}
+      <Dol><PrzyciskLink do="pit/wyslij">{DZIS < '2027-01-01' ? 'Zobacz, jak wygląda wysyłka' : 'Wyślij przez e-Urząd Skarbowy'}</PrzyciskLink></Dol>
     </>
   )
 }
@@ -68,14 +70,15 @@ export function PitWyslij() {
   const pit = usePit()
   const { osoba } = useMagazyn()
   const t = useTrasa()
-  const [wyslany, setWyslany] = useState(false)
+  const [wyslanie, ustawWyslanie] = useSzkic<{ data?: string }>('pit-wyslany', {})
+  const wyslany = !!wyslanie.data
   if (!pit) return <Navigate to={t('start')} replace />
   const wiersze: [string, string][] = [['Formularz', 'PIT-28 za 2026'], ['Podatnik', `${osoba.imie} ${osoba.nazwisko}`], ['Podatek za rok', formatZl(pit.podatek)], [wynikSlowami(pit.roznica), formatZl(Math.abs(pit.roznica))]]
   if (wyslany)
     return (
       <>
         <PasekGorny tytul="Wyślij PIT-28" wstecz={false} />
-        <Wynik bezDopisku tytul="PIT-28 wysłany" wiersze={[...wiersze, ['Data wysłania', formatData(DZIS)]]} dalej={{ etykieta: 'Gotowe', do: 'firma' }}>
+        <Wynik bezDopisku tytul="PIT-28 wysłany" wiersze={[...wiersze, ['Data wysłania', formatData(wyslanie.data!)]]} dalej={{ etykieta: 'Gotowe', do: 'firma' }}>
           <p className="uwaga">Wysyłka pokazowa — nic nie trafiło do urzędu skarbowego.</p>
         </Wynik>
       </>
@@ -87,7 +90,7 @@ export function PitWyslij() {
         wiersze={wiersze}
         uwaga="Zeznanie trafi do e-Urzędu Skarbowego. Korektę złożysz w każdej chwili."
         etykieta="Wyślij PIT-28"
-        onPotwierdz={() => setWyslany(true)}
+        onPotwierdz={() => ustawWyslanie({ data: DZIS })}
       />
     </>
   )

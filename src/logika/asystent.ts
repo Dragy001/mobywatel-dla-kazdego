@@ -1,7 +1,7 @@
 import type { Kontrahent, Osoba, StanOsoby } from '../dane/typy'
-import { dataSlownie, zaIleDni } from './daty'
+import { dataSlownie, formatData, zaIleDni } from './daty'
 import { REJESTR, SZKIC_POCZATKOWY, type SzkicFaktury } from './faktura'
-import { podsumowanie } from './firma'
+import { podsumowanie, wszystkieFaktury } from './firma'
 import { formatZl } from './pieniadze'
 
 export interface Odpowiedz {
@@ -27,9 +27,16 @@ function znajdzKontrahenta(q: string, lista: Kontrahent[]): Kontrahent | undefin
   )
 }
 
+const MIESIAC = /^\s*(stycz|lut|mar|kwie|maj|czerw|lip|sierp|wrze|pazdz|listop|grud)/
+
+/** Kwota: najpierw liczba z „zł”/„pln”, potem „na <liczba>”, ale nie „na 12 grudnia”. */
 function znajdzKwote(q: string): string | undefined {
-  const m = q.match(/\bna\s+(\d[\d\s]*(?:[.,]\d{1,2})?)\s*(?:zl|pln)?/)
-  return m?.[1].replace(/\s/g, '')
+  const zl = q.match(/(\d[\d\s]*(?:[.,]\d{1,2})?)\s*(?:zl|pln)\b/)
+  if (zl) return zl[1].replace(/\s/g, '')
+  for (const m of q.matchAll(/\bna\s+(\d+(?:[.,]\d{1,2})?)/g)) {
+    if (!MIESIAC.test(q.slice((m.index ?? 0) + m[0].length))) return m[1]
+  }
+  return undefined
 }
 
 export function podpowiedzi(osoba: Osoba): string[] {
@@ -43,15 +50,28 @@ export function odpowiedz(pytanie: string, osoba: Osoba, stan: StanOsoby): Odpow
   const ma = (...slowa: string[]) => slowa.some((s) => q.includes(s))
   const firma = osoba.firma
 
+  if (firma && ma('faktur') && ma('zaplac', 'oplac')) {
+    const doZaplaty = wszystkieFaktury(firma, stan).filter((f) => f.rodzaj === 'otrzymana' && !f.zaplacona && !stan.zaplacone.includes(f.id))
+    const k = znajdzKontrahenta(q, doZaplaty.map((f) => f.kontrahent))
+    const f = k && doZaplaty.find((x) => x.kontrahent.nip === k.nip)
+    return f
+      ? {
+          tekst: `Faktura od ${f.kontrahent.nazwa} czeka na zapłatę. Zanim zapłacisz, sprawdzimy rachunek na białej liście VAT.`,
+          karta: { tytul: f.numer, wiersze: [['Od kogo', f.kontrahent.nazwa], ['Termin', formatData(f.data)]], akcja: { etykieta: 'Zobacz fakturę', trasa: `faktury/${f.id}` } },
+        }
+      : { tekst: 'Faktury od innych firm znajdziesz na liście faktur. Przy każdej niezapłaconej jest przycisk „Zapłać”.', karta: { tytul: 'Faktury', wiersze: [], akcja: { etykieta: 'Zobacz faktury', trasa: 'faktury' } } }
+  }
+
   if (firma && ma('faktur')) {
     const k = znajdzKontrahenta(q, [...firma.kontrahenci, ...REJESTR])
     const kwota = znajdzKwote(q)
     if (k && kwota) {
       const u = firma.uslugi[0]
-      const wartosc: SzkicFaktury = { ...SZKIC_POCZATKOWY, kontrahent: k, kwotaTekst: kwota, tryb: 'netto', opis: u.opis, stawkaVat: u.stawkaVat }
+      const tryb = ma('brutto') ? 'brutto' : 'netto'
+      const wartosc: SzkicFaktury = { ...SZKIC_POCZATKOWY, kontrahent: k, kwotaTekst: kwota, tryb, opis: u.opis, stawkaVat: u.stawkaVat }
       return {
-        tekst: `Przygotowałem fakturę dla ${k.nazwa} na ${kwota} zł netto. Sprawdź ją przed wysłaniem do KSeF.`,
-        karta: { tytul: 'Szkic faktury', wiersze: [['Nabywca', k.nazwa], ['Usługa', u.opis], ['Kwota netto', `${kwota} zł`]], akcja: { etykieta: 'Sprawdź i wyślij', trasa: 'faktura/nowa/3' } },
+        tekst: `Przygotowałem fakturę dla ${k.nazwa} na ${kwota} zł ${tryb}. Sprawdź ją przed wysłaniem do KSeF.`,
+        karta: { tytul: 'Szkic faktury', wiersze: [['Nabywca', k.nazwa], ['Usługa', u.opis], [`Kwota ${tryb}`, `${kwota} zł`]], akcja: { etykieta: 'Sprawdź i wyślij', trasa: 'faktura/nowa/3' } },
         szkic: { klucz: 'nowa-faktura', wartosc },
       }
     }

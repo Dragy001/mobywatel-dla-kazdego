@@ -56,10 +56,22 @@ export function reduktor(stan: Stan, a: Akcja): Stan {
   }
 }
 
+/** Stan zapisany przez starszą wersję może nie mieć nowych pól — uzupełniamy je ze stanu startowego. */
+function uzupelnij(z: Partial<Stan>): Stan {
+  const start = stanStartowy()
+  if (!z || typeof z !== 'object' || typeof z.osoby !== 'object' || !z.osoby) return start
+  const osoby = { ...start.osoby }
+  for (const id of Object.keys(start.osoby) as (keyof Stan['osoby'])[]) {
+    const o = z.osoby[id]
+    if (o && typeof o === 'object') osoby[id] = { ...start.osoby[id], ...o, ustawienia: { ...start.osoby[id].ustawienia, ...(o.ustawienia ?? {}) } }
+  }
+  return { osoba: z.osoba && z.osoba in osoby ? z.osoba : undefined, osoby }
+}
+
 function wczytaj(): Stan {
   try {
     const t = window.sessionStorage.getItem(KLUCZ)
-    if (t) return JSON.parse(t) as Stan
+    if (t) return uzupelnij(JSON.parse(t) as Partial<Stan>)
   } catch {
     /* storage niedostępny — działamy w pamięci */
   }

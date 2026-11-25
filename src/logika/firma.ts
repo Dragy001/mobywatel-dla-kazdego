@@ -1,5 +1,5 @@
 import type { Faktura, Firma, StanOsoby } from '../dane/typy'
-import { DZIS } from './daty'
+import { DZIS, dzienRoboczy } from './daty'
 import { bruttoZNetto, type Grosze, type KwotyVat } from './pieniadze'
 import { odliczenieOdPrzychodu, ryczaltZaMiesiac, vatZaMiesiac, zusZaMiesiac, type Ryczalt, type Vat, type Zus } from './podatki'
 
@@ -89,7 +89,7 @@ export function podsumowanie(firma: Firma, stan: StanOsoby, miesiac = '2026-11')
     zus,
     odliczenie,
     razem: vat.doZaplaty + ryczalt.doZaplaty + zus.razem,
-    terminy: { zus: `${nast}-20`, ryczalt: `${nast}-20`, vat: `${nast}-25` },
+    terminy: { zus: dzienRoboczy(`${nast}-20`), ryczalt: dzienRoboczy(`${nast}-20`), vat: dzienRoboczy(`${nast}-25`) },
     grudzien: { przychod: przychodGrudnia, vat: vatMiesiaca(faktury, nast).doZaplaty, ryczaltSzacunek: ryczaltGrudnia.doZaplaty },
   }
 }
@@ -117,4 +117,16 @@ export function pitRoczny(firma: Firma, stan: StanOsoby): PitRoczny {
 /** Zawieszenie działa dopiero od zgłoszonej daty. */
 export function zawieszonaTeraz(stan: Pick<StanOsoby, 'statusFirmy' | 'zawieszonaOd'>, dzis = DZIS): boolean {
   return stan.statusFirmy === 'zawieszona' && !!stan.zawieszonaOd && stan.zawieszonaOd <= dzis
+}
+
+/** Pierwszy miesiąc, w którym przychód od stycznia minus składki społeczne przekracza 60 tys. zł (wyższa zdrowotna). */
+export function miesiacProguZdrowotnej(p: PodsumowanieMiesiaca): string | null {
+  const rok = p.miesiac.slice(0, 4)
+  let przych = 0, spol = 0
+  for (let m = `${rok}-01`; m <= p.miesiac; m = nastepnyMiesiac(m)) {
+    przych += p.przychodyMiesieczne[m] ?? 0
+    if (przych - spol > 6_000_000) return m
+    spol += zusZaMiesiac(przych - spol).odliczalne
+  }
+  return null
 }

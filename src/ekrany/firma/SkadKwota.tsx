@@ -1,5 +1,6 @@
 import { Navigate, useParams } from 'react-router-dom'
-import { dataSlownie, nazwaMiesiaca } from '../../logika/daty'
+import { dataSlownie, miesiacDopelniacz, nazwaMiesiaca } from '../../logika/daty'
+import { miesiacProguZdrowotnej } from '../../logika/firma'
 import { formatZl, type Grosze } from '../../logika/pieniadze'
 import { useMagazyn, useUstawienia } from '../../stan/magazyn'
 import { PasekGorny } from '../../ui/PasekGorny'
@@ -54,7 +55,7 @@ export function SkadKwota() {
       { nazwa: 'Chorobowa', kwota: z.chorobowa, wyjasnienie: '2,45% — dobrowolna. Dzięki niej dostaniesz zasiłek, gdy zachorujesz.' },
       { nazwa: 'Wypadkowa', kwota: z.wypadkowa, wyjasnienie: '1,67% — na wypadek wypadku przy pracy.' },
       { nazwa: 'Fundusz Pracy', kwota: z.fp, wyjasnienie: '2,45% — tej części nie odliczasz od przychodu.' },
-      { nazwa: 'Zdrowotna', kwota: z.zdrowotna, wyjasnienie: 'Stała kwota dla przychodu od 60 do 300 tys. zł w roku — tyle masz od kwietnia.' },
+      { nazwa: 'Zdrowotna', kwota: z.zdrowotna, wyjasnienie: zdrowotnaSlowami(miesiacProguZdrowotnej(p)) },
     ]
   }
   const prosty = widok === 'prosty'
@@ -80,4 +81,10 @@ export function SkadKwota() {
       <Dol><PrzyciskLink do={`zaplac/${rodzaj}-${p.miesiac}/1`}>Zapłać</PrzyciskLink></Dol>
     </>
   )
+}
+
+function zdrowotnaSlowami(prog: string | null): string {
+  return prog
+    ? `Stała kwota dla przychodu od 60 do 300 tys. zł w roku — tyle płacisz od ${miesiacDopelniacz(prog)}, kiedy przychód minus składki przekroczył 60 tys. zł.`
+    : 'Stała kwota dla przychodu do 60 tys. zł w roku.'
 }

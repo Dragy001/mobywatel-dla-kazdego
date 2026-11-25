@@ -7,7 +7,8 @@ export function useKrok(baza: string) {
   const { krok = '1' } = useParams()
   const nav = useNavigate()
   const t = useTrasa()
-  return { krok: Number(krok) || 1, idz: (n: number | string) => nav(t(`${baza}/${n}`)) }
+  const n = Number(krok)
+  return { krok: Number.isInteger(n) && n >= 1 ? n : 1, idz: (n: number | string) => nav(t(`${baza}/${n}`)) }
 }
 
 /** Szkic sprawy trzymany w stanie sesji — przeżywa odświeżenie i zmianę widoku. */

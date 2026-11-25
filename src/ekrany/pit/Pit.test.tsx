@@ -9,7 +9,7 @@ describe.each(WIDOKI)('widok %s', (w) => {
     expect(screen.getByRole('region', { name: 'Wynik rozliczenia' })).toHaveTextContent('Zostaje do zapłaty')
     expect(screen.getByRole('heading', { name: 'Do sprawdzenia przed wysłaniem' })).toBeInTheDocument()
     await bezNaruszen(container)
-    await userEvent.click(screen.getByRole('link', { name: 'Wyślij przez e-Urząd Skarbowy' }))
+    await userEvent.click(screen.getByRole('link', { name: 'Zobacz, jak wygląda wysyłka' }))
     await userEvent.click(screen.getByRole('button', { name: 'Wyślij PIT-28' }))
     expect(screen.getByRole('status')).toHaveTextContent('PIT-28 wysłany')
     expect(screen.getByText(/Wysyłka pokazowa/)).toBeInTheDocument()

@@ -23,7 +23,7 @@ test('zwykly: karta do zapłaty z trzema kwotami i wyjaśnieniami', () => {
 
 test('prosty: zdanie z sumą i najbliższym terminem', async () => {
   renderOsoba('tomasz', 'prosty', 'firma')
-  expect(screen.getByText(`W tym miesiącu zapłacisz razem ${formatZl(p.razem)}. Najbliższy termin: 20 grudnia.`)).toBeInTheDocument()
+  expect(screen.getByText(`W tym miesiącu zapłacisz razem ${formatZl(p.razem)}. Najbliższy termin: 21 grudnia.`)).toBeInTheDocument()
   expect(screen.getByRole('link', { name: /Moje faktury/ })).toHaveAttribute('href', '#/tomasz/faktury')
   await userEvent.click(screen.getByRole('button', { name: /Więcej spraw firmy/ }))
   expect(screen.getByRole('link', { name: /Dane w CEIDG/ })).toHaveAttribute('href', '#/tomasz/ceidg')

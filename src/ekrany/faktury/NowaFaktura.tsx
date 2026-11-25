@@ -108,7 +108,7 @@ export function NowaFaktura() {
         <>
           <fieldset className="wybor">
             <legend className="sekcja-tytul">Komu wystawiasz fakturę?</legend>
-            {firma.kontrahenci.slice(0, prosty ? 3 : 5).map((k) => (
+            {zWybranym(firma.kontrahenci, prosty ? 3 : 5, (k) => !szkic.nowy && k.nip === kontrahent?.nip).map((k) => (
               <label key={k.nip} className="opcja">
                 <input type="radio" name="komu" checked={!szkic.nowy && kontrahent?.nip === k.nip} onChange={() => { ustaw({ kontrahent: k, nowy: false }); setBlad('') }} />
                 <span className="opcja__tekst"><strong>{k.nazwa}</strong>{!prosty && <span className="opcja__opis">NIP {k.nip}</span>}</span>
@@ -140,7 +140,7 @@ export function NowaFaktura() {
         <>
           <fieldset className="wybor">
             <legend className="sekcja-tytul">Za co jest faktura?</legend>
-            {firma.uslugi.slice(0, prosty ? 3 : 4).map((u) => (
+            {zWybranym(firma.uslugi, prosty ? 3 : 4, (u) => !szkic.inna && u.opis === szkic.opis).map((u) => (
               <label key={u.opis} className="opcja">
                 <input type="radio" name="za-co" checked={!szkic.inna && szkic.opis === u.opis} onChange={() => { ustaw({ opis: u.opis, stawkaVat: u.stawkaVat, inna: false }); setBlad('') }} />
                 <span className="opcja__tekst"><strong>{u.opis}</strong><span className="opcja__opis">VAT {u.stawkaVat}%{u.ostatniaKwotaNetto ? ` · ostatnio ${formatZl(u.ostatniaKwotaNetto, { bezGroszy: true })} netto` : ''}</span></span>
@@ -212,4 +212,11 @@ export function NowaFaktura() {
       {krok === 3 && !(kontrahent && kwoty) && <Navigate to={t(wyslana ? `faktury/${wyslana}` : `${BAZA}/1`)} replace />}
     </>
   )
+}
+
+/** Pierwsze `n` pozycji, a jeśli wybrana jest dalej — także ona, żeby wybór nigdy nie był ukryty. */
+function zWybranym<T>(lista: T[], n: number, wybrana: (x: T) => boolean): T[] {
+  const pocz = lista.slice(0, n)
+  const w = lista.find(wybrana)
+  return w && !pocz.includes(w) ? [...pocz, w] : pocz
 }

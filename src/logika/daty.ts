@@ -49,3 +49,21 @@ const DNI = ['niedziela', 'poniedziałek', 'wtorek', 'środa', 'czwartek', 'pią
 export function dzisSlownie(data: string = DZIS): string {
   return `${DNI[new Date(doUtc(data)).getUTCDay()]}, ${dataSlownie(data)}`
 }
+
+/** Stałe dni wolne (bez świąt ruchomych — w okresie pokazu ich nie ma). Wigilia wolna od 2025 r. */
+const WOLNE = ['01-01', '01-06', '05-01', '05-03', '08-15', '11-01', '11-11', '12-24', '12-25', '12-26']
+
+/** Termin wypadający w sobotę, niedzielę lub święto przechodzi na następny dzień roboczy. */
+export function dzienRoboczy(data: string): string {
+  let d = data
+  for (;;) {
+    const dt = new Date(doUtc(d)).getUTCDay()
+    if (dt !== 0 && dt !== 6 && !WOLNE.includes(d.slice(5))) return d
+    d = dodajDni(d, 1)
+  }
+}
+
+/** "maja" — miesiąc w dopełniaczu z "2026-05". */
+export function miesiacDopelniacz(m: string): string {
+  return MIESIACE[Number(m.slice(5, 7)) - 1]
+}

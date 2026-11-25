@@ -9,7 +9,7 @@ const firma = tomasz.firma!
 test('podsumowanie listopada zgadza się arytmetycznie', () => {
   const p = podsumowanie(firma, stanPoczatkowy(tomasz))
   expect(p.razem).toBe(p.vat.doZaplaty + p.ryczalt.doZaplaty + p.zus.razem)
-  expect(p.terminy).toEqual({ zus: '2026-12-20', ryczalt: '2026-12-20', vat: '2026-12-25' })
+  expect(p.terminy).toEqual({ zus: '2026-12-21', ryczalt: '2026-12-21', vat: '2026-12-28' })
   expect(p.przychod).toBeGreaterThan(1_300_000)
   expect(p.przychod).toBeLessThan(1_700_000)
 })
