@@ -195,6 +195,7 @@ export function NowaFaktura() {
             ['Netto', formatZl(kwoty.netto)],
             [`VAT ${szkic.stawkaVat}%`, formatZl(kwoty.vat)],
             ['Brutto', formatZl(kwoty.brutto)],
+            ['Twój adres', stanOsoby.adresFirmy ?? firma.adres],
             ['Data wystawienia', formatData(DZIS)],
             ['Termin płatności', formatData(dodajDni(DZIS, 14))],
           ]}

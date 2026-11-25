@@ -24,6 +24,7 @@ import { Sms, SmsWerdykt, SmsZglos } from './sms/Sms'
 import { Historia } from './historia/Historia'
 import { Pit, PitWyslij } from './pit/Pit'
 import { Wznowienie, Zawieszenie } from './ceidg/Zawieszenie'
+import { ZmianaAdresu } from './ceidg/Adres'
 
 const ZASLEPKI: [string, string][] = [
   ['start', 'Start'],
@@ -72,6 +73,7 @@ const GOTOWE: [string, JSX.Element][] = [
   ['ceidg', <Ceidg />],
   ['ceidg/zawies/:krok', <Zawieszenie />],
   ['ceidg/wznow', <Wznowienie />],
+  ['ceidg/adres/:krok', <ZmianaAdresu />],
   ['dostep', <Dostep />],
   ['dostep/token', <PrzedluzToken />],
   ['dostep/odbierz/:id', <OdbierzDostep />],
