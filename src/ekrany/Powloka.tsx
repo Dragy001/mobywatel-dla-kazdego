@@ -6,11 +6,12 @@ import { PasekPomocnika } from '../ui/PasekPomocnika'
 import { PasekZakladek } from '../ui/PasekZakladek'
 import { PoprosOPomocPrzycisk } from '../ui/PoprosOPomocPrzycisk'
 import { TrasyOsoby } from './trasy'
+import { PierwszeUruchomienie } from './PierwszeUruchomienie'
 
 export function Powloka() {
   const { osoba: param } = useParams()
   const { stan, wyslij } = useMagazyn()
-  const { widok } = useUstawienia()
+  const { widok, pierwszeUruchomienieZrobione } = useUstawienia()
   const loc = useLocation()
   const ok = jestOsoba(param)
 
@@ -24,6 +25,12 @@ export function Powloka() {
 
   if (!ok) return <Navigate to="/" replace />
   if (stan.osoba !== param) return null
+  if (!pierwszeUruchomienieZrobione)
+    return (
+      <div className="aplikacja" data-widok={widok}>
+        <main id="tresc" className="tresc"><PierwszeUruchomienie /></main>
+      </div>
+    )
   const naPomocy = loc.pathname.endsWith('/pomoc') || loc.pathname.includes('/pomoc/')
 
   return (

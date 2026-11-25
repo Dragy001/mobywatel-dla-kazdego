@@ -392,3 +392,18 @@
 @keyframes kreci { to { transform: rotate(360deg); } }
 @media (prefers-reduced-motion: reduce) { .kreci { animation: none; } }
 .porownaj { margin-top: 20px; }
+
+/* Pierwsze uruchomienie */
+.pierwsze { padding-top: 16px; }
+.pierwsze__karty { display: grid; grid-template-columns: 1fr; gap: 12px; }
+.opcja--karta { display: grid; grid-template-columns: 84px 1fr auto; align-items: center; gap: 12px; }
+.opcja--karta input { order: 3; }
+.opcja--karta:has(input:checked) { border-color: var(--akcent); box-shadow: 0 0 0 2px var(--akcent); }
+.podglad { display: flex; flex-direction: column; gap: 5px; padding: 8px; background: var(--powierzchnia-2); border-radius: 10px; min-height: 100px; }
+.podglad__duzy { height: 22px; border-radius: 8px; background: var(--akcent-tlo); border: 2px solid var(--akcent); }
+.podglad__duzy--pomoc { border-color: var(--pomoc); background: var(--sukces-tlo); margin-top: auto; }
+.podglad__wiersz { height: 12px; border-radius: 4px; background: var(--ramka); }
+.podglad__zakladki { display: flex; gap: 6px; margin-top: auto; }
+.podglad__zakladki span { flex: 1; height: 14px; border-radius: 4px; background: var(--ramka-mocna); }
+.pierwsze__probka { margin: 8px 0 0; font-size: 1.1rem; }
+input[type='range'] { width: 100%; accent-color: var(--akcent); min-height: 44px; }
