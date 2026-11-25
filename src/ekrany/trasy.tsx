@@ -20,6 +20,7 @@ import { NowyDostep } from './dostep/NowyDostep'
 import { Terminy } from './terminy/Terminy'
 import { Zaplac } from './terminy/Zaplac'
 import { Sms, SmsWerdykt, SmsZglos } from './sms/Sms'
+import { Historia } from './historia/Historia'
 import { Wznowienie, Zawieszenie } from './ceidg/Zawieszenie'
 
 const ZASLEPKI: [string, string][] = [
@@ -77,6 +78,7 @@ const GOTOWE: [string, JSX.Element][] = [
   ['sms', <Sms />],
   ['sms/:id', <SmsWerdykt />],
   ['sms/:id/zglos', <SmsZglos />],
+  ['historia', <Historia />],
 ]
 
 export function TrasyOsoby() {

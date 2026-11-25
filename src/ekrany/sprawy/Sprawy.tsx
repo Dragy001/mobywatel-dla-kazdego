@@ -1,4 +1,5 @@
-import { IconCircleCheck } from '@tabler/icons-react'
+import { IconCircleCheck, IconEye } from '@tabler/icons-react'
+import { DuzyPrzycisk } from '../../ui/DuzyPrzycisk'
 import { formatData } from '../../logika/daty'
 import { zadaniaDla } from '../../logika/zadania'
 import { useMagazyn, useUstawienia } from '../../stan/magazyn'
@@ -46,6 +47,8 @@ export function Sprawy() {
           </ul>
         )}
       </section>
+      <h2 className="sekcja-tytul">Twoje dane</h2>
+      <DuzyPrzycisk ikona={<IconEye size={28} />} etykieta="Kto sprawdzał moje dane" opis="Apteka, przychodnia, bank — kto i po co" do="historia" />
     </>
   )
 }

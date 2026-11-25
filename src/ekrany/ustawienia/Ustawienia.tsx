@@ -1,9 +1,10 @@
-import { IconHeartHandshake, IconRefresh } from '@tabler/icons-react'
+import { IconEye, IconHeartHandshake, IconRefresh } from '@tabler/icons-react'
 import { useNavigate } from 'react-router-dom'
 import type { Ustawienia as U } from '../../dane/typy'
 import { useMagazyn, useUstawienia } from '../../stan/magazyn'
 import { PasekGorny } from '../../ui/PasekGorny'
 import { Przelacznik } from '../../ui/Przelacznik'
+import { DuzyPrzycisk } from '../../ui/DuzyPrzycisk'
 import { Przycisk } from '../../ui/Przycisk'
 
 const ROZMIARY: { skala: U['skala']; nazwa: string }[] = [
@@ -55,6 +56,9 @@ export function Ustawienia() {
           <span><strong>{p.imie}</strong>, {p.relacja} · tel. {p.telefon}</span>
         </div>
       ))}
+
+      <h2 className="sekcja-tytul">Prywatność</h2>
+      <DuzyPrzycisk ikona={<IconEye size={28} />} etykieta="Kto sprawdzał moje dane" do="historia" />
 
       <Przycisk ton="drugi" onClick={() => { wyslij({ t: 'reset' }); nav('/') }}>
         <IconRefresh size={20} aria-hidden /> Zacznij od nowa
